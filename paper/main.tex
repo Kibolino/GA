@@ -47,13 +47,12 @@
 
 \begin{document}
 
-\title{Algoritmos Genéticos Aplicados à Escolha de Voos de um Grupo de Pesquisadores e à Minimização da Função de Rastrigin}
+\title{Algoritmos Evolucionários}
 
-% TODO: preencher nome(s), matricula(s) e instituicao antes da entrega.
-\author{\IEEEauthorblockN{Nome do(a) Aluno(a)}
+\author{\IEEEauthorblockN{Kleber Augusto Barbosa}
 \IEEEauthorblockA{Engenharia de Computação -- ECOI2217 Inteligência Artificial\\
-Instituição -- Cidade, UF, Brasil\\
-email@instituicao.edu.br}}
+Universidade Federal de Itajubá -- Itabira, MG, Brasil\\
+kleberbarbosa@unifei.edu.br}}
 
 \maketitle
 
@@ -69,12 +68,12 @@ Algoritmos Genéticos, otimização combinatória, função de Rastrigin, DEAP, 
 % ============================================================================
 \section{Introdução}
 % ============================================================================
-Algoritmos Genéticos são métodos de busca estocástica inspirados na seleção natural~\cite{holland1975,goldberg1989}. Eles mantêm uma população de soluções candidatas (indivíduos), avaliam cada uma por uma função de aptidão (\emph{fitness}) e geram novas soluções por seleção, cruzamento e mutação. Não exigem gradiente nem convexidade e se aplicam tanto a espaços discretos e combinatórios quanto a funções contínuas multimodais~\cite{eiben2015}.
+Algoritmos Genéticos são métodos de busca estocástica inspirados na seleção natural~\cite{goldberg1989}. Eles mantêm uma população de soluções candidatas (indivíduos), avaliam cada uma por uma função de aptidão (\emph{fitness}) e geram novas soluções por seleção, cruzamento e mutação. Não exigem gradiente nem convexidade e se aplicam tanto a espaços discretos e combinatórios quanto a funções contínuas multimodais.
 
 Este trabalho resolve as duas atividades da avaliação N2 da disciplina ECOI2217:
 \begin{enumerate}
   \item \textbf{Atividade 1:} escolher, entre os 120 voos de \code{flights.txt}, as passagens de ida e volta de seis pesquisadores (Lisboa, Madri, Paris, Dublin, Bruxelas e Londres) para um congresso em Roma, com o menor preço e o menor tempo de espera nos aeroportos. O problema segue o exemplo clássico de otimização de viagens em grupo de Segaran~\cite{segaran2007}. O AG foi implementado \textbf{sem bibliotecas de AG}.
-  \item \textbf{Atividade 2:} minimizar a função de Rastrigin~\cite{rastrigin1974,muhlenbein1991} para $n=2$ e $n=10$, usando a biblioteca \deap{}~\cite{fortin2012deap}.
+  \item \textbf{Atividade 2:} minimizar a função de Rastrigin~\cite{surjanovic2013} para $n=2$ e $n=10$, usando a biblioteca \deap{}~\cite{fortin2012deap}.
 \end{enumerate}
 
 As contribuições do trabalho são:
@@ -90,7 +89,7 @@ O código é reprodutível por \emph{seed} e acompanha este documento.
 \section{Fundamentação: componentes do AG}
 \label{sec:ga}
 % ============================================================================
-Um AG geracional repete o seguinte ciclo~\cite{eiben2015}:
+Um AG geracional repete o seguinte ciclo:
 \begin{enumerate}
   \item avaliar a população $\mathcal{P}_t$;
   \item selecionar pais;
@@ -101,9 +100,9 @@ Um AG geracional repete o seguinte ciclo~\cite{eiben2015}:
 
 \textbf{Representação.} É a escolha do cromossomo. Ela define o espaço que o AG realmente explora e quais operadores produzem descendentes válidos.
 
-\textbf{Seleção por torneio.} Sorteiam-se $k$ indivíduos e o de melhor fitness vence~\cite{miller1995tournament}. O parâmetro $k$ controla a pressão seletiva: com $k$ maior, os bons indivíduos dominam mais rápido, com risco de convergência prematura. O torneio depende só da ordem das fitness, e não da escala, o que é útil quando a fitness inclui penalidades de magnitude muito diferente.
+\textbf{Seleção por torneio.} Sorteiam-se $k$ indivíduos e o de melhor fitness vence. O parâmetro $k$ controla a pressão seletiva: com $k$ maior, os bons indivíduos dominam mais rápido, com risco de convergência prematura. O torneio depende só da ordem das fitness, e não da escala, o que é útil quando a fitness inclui penalidades de magnitude muito diferente.
 
-\textbf{Elitismo.} Os $e$ melhores indivíduos são copiados sem alteração para a próxima geração. Isso garante que a melhor fitness da população nunca piora~\cite{dejong1975}.
+\textbf{Elitismo.} Os $e$ melhores indivíduos são copiados sem alteração para a próxima geração. Isso garante que a melhor fitness da população nunca piora.
 
 % ============================================================================
 \section{Atividade 1: voos para o congresso em Roma}
@@ -118,7 +117,7 @@ O enunciado diz que os pesquisadores pegam \emph{uma van} no aeroporto até o co
 \begin{enumerate}
 \item[P1)] A van só parte de FCO quando o \textbf{último} pesquisador chega. Quem chega antes espera.
 \item[P2)] Na volta, a van deixa todos juntos em FCO, no instante $t_{\text{drop}}$. Cada pesquisador espera até a partida do próprio voo.
-\item[P3)] \textbf{Cenário A} (ida e volta em dias distintos, como no problema original~\cite{segaran2007}): não há janela. A van chega a FCO $\tau_c$ minutos antes do primeiro voo de volta.
+\item[P3)] \textbf{Cenário A} (ida e volta em dias distintos, como no problema original): não há janela. A van chega a FCO $\tau_c$ minutos antes do primeiro voo de volta.
 \item[P4)] \textbf{Cenário B} (mesa-redonda das 14:00 às 16:00 no mesmo dia da viagem): o grupo deve chegar ao congresso até o início da mesa ($t_{\text{van}}+\tau_t\le$ 14:00). A van sai do congresso às 16:00, então $t_{\text{drop}}=$ 16:45, e todo voo de volta deve partir após $t_{\text{drop}}+\tau_c=$ 17:45.
 \item[P5)] Nenhum voo cruza a meia-noite (verificado na leitura dos dados). O tempo gasto dentro do avião não é espera. Só conta o tempo parado no aeroporto de Roma.
 \end{enumerate}
@@ -154,7 +153,7 @@ No cenário B, as violações (em minutos) são
 g_0=\max(0,\;t_{\text{van}}+\tau_t-t_{\text{ini}}),\quad
 g_i=\max(0,\;t_{\text{drop}}+\tau_c-d_i).
 \end{equation}
-Elas entram em uma penalidade com uma parcela fixa e outra proporcional~\cite{coello2002constraints}:
+Elas entram em uma penalidade com uma parcela fixa e outra proporcional:
 \begin{equation}
 P(\mathbf{x})=\rho_f\sum_{j=0}^{6}[g_j>0]\;+\;\rho_m\sum_{j=0}^{6}g_j,
 \end{equation}
@@ -176,7 +175,7 @@ em que $\lambda$ (EUR/min) é o custo atribuído a um minuto de espera. Usou-se 
 
 A mutação de bloco foi introduzida depois de observar a estagnação do AG. A fitness acopla os seis pesquisadores por $\max_i a_i$ e $\min_i d_i$. Uma solução boa é, por isso, um \emph{grupo sincronizado}: todos chegam perto do mesmo horário e todos partem perto do mesmo horário. Mudar um único voo desse grupo quase sempre aumenta a espera de todos. Assim, os ótimos locais são agrupamentos em outros horários do dia, e a mutação gene a gene raramente sai deles. Deslocar o bloco inteiro mantém a sincronia e move o grupo para o horário vizinho. O operador explora a ordenação temporal da representação e só produz índices válidos.
 
-O elitismo copia os $e=5$ melhores indivíduos. O laço completo está no Algoritmo~\ref{alg:a1}. Todas as operações sobre a população são vetorizadas com \code{numpy}~\cite{harris2020numpy}.
+O elitismo copia os $e=5$ melhores indivíduos. O laço completo está no Algoritmo~\ref{alg:a1}. Todas as operações sobre a população são vetorizadas com \code{numpy}.
 
 \begin{algorithm}[!t]
 \caption{AG da Atividade 1 (implementação própria)}
@@ -216,13 +215,13 @@ A Tabela~\ref{tab:a1_params} lista os parâmetros. A configuração base foi esc
 \begin{equation}
 f(\mathbf{x})=An+\sum_{i=1}^{n}\left[x_i^2-A\cos(2\pi x_i)\right],\quad A=10,
 \end{equation}
-com $x_i\in[-5{,}12;\,5{,}12]$ e mínimo global $f(\mathbf{0})=0$~\cite{surjanovic2013}. Cada coordenada contribui com $x_i^2+A(1-\cos 2\pi x_i)\ge0$, termo que tem mínimos locais próximos de cada inteiro $k$, de valor $\approx k^2$. Assim, $f\approx m$ indica $m$ coordenadas presas em $\pm1$. Além disso, $f<0{,}5$ só ocorre se todo $|x_i|\lesssim0{,}05$, ou seja, se a solução está na bacia do ótimo global. Para $n=2$ existem cerca de 100 mínimos locais no domínio. Para $n=10$, o número cresce exponencialmente.
+com $x_i\in[-5{,}12;\,5{,}12]$ e mínimo global $f(\mathbf{0})=0$. Cada coordenada contribui com $x_i^2+A(1-\cos 2\pi x_i)\ge0$, termo que tem mínimos locais próximos de cada inteiro $k$, de valor $\approx k^2$. Assim, $f\approx m$ indica $m$ coordenadas presas em $\pm1$. Além disso, $f<0{,}5$ só ocorre se todo $|x_i|\lesssim0{,}05$, ou seja, se a solução está na bacia do ótimo global. Para $n=2$ existem cerca de 100 mínimos locais no domínio. Para $n=10$, o número cresce exponencialmente.
 
 \subsection{Representação e operadores}
 O cromossomo é uma lista de $n$ reais (\code{creator.Individual}, que herda de \code{list}), e a fitness é o próprio $f$ com peso $-1$ (minimização). Como o domínio é uma caixa, foram usados operadores \emph{limitados}, que nunca geram genes fora de $[-5{,}12;\,5{,}12]$:
 \begin{itemize}
 \item \textbf{Cruzamento SBX}~\cite{deb1995sbx}: os filhos ficam a uma distância dos pais controlada pelo índice $\eta_c$. Com $\eta_c$ alto, os filhos ficam perto dos pais; com $\eta_c$ baixo, a busca é mais exploratória. O operador atua coordenada a coordenada, o que combina com a separabilidade da Rastrigin.
-\item \textbf{Mutação polinomial}~\cite{deb1996polynomial}: perturba cada gene com probabilidade $p_{\text{gene}}=1/n$, com amplitude controlada por $\eta_m$.
+\item \textbf{Mutação polinomial}: perturba cada gene com probabilidade $p_{\text{gene}}=1/n$, com amplitude controlada por $\eta_m$.
 \item \textbf{Seleção:} torneio com $k=3$.
 \end{itemize}
 
@@ -235,7 +234,7 @@ O algoritmo pronto \code{algorithms.eaSimple} não é elitista: o \code{HallOfFa
 \section{Tutorial prático: DEAP em cinco passos}
 \label{sec:tutorial}
 % ============================================================================
-O \deap{} (\emph{Distributed Evolutionary Algorithms in Python})~\cite{fortin2012deap,deapdocs} não impõe um algoritmo fechado. Ele fornece tipos, operadores e laços prontos, que o usuário combina por meio de uma \emph{caixa de ferramentas} (\code{Toolbox}). Para instalar:
+O \deap{} (\emph{Distributed Evolutionary Algorithms in Python}) não impõe um algoritmo fechado. Ele fornece tipos, operadores e laços prontos, que o usuário combina por meio de uma \emph{caixa de ferramentas} (\code{Toolbox}). Para instalar:
 \begin{lstlisting}[language=bash,numbers=none]
 pip install deap numpy
 \end{lstlisting}
@@ -317,7 +316,7 @@ for gen in range(1, ngen + 1):
 \label{sec:res}
 % ============================================================================
 \subsection{Protocolo}
-Cada configuração foi executada 30 vezes de forma independente. A execução $r$ usa a \emph{seed} $2026+r$. Para cada execução registrou-se o melhor $F$ (ou $f$) ao final e, a cada geração, o melhor, o médio e o pior valor da população. As tabelas reportam média, variância e desvio padrão \emph{amostrais} ($n-1$) do melhor valor final, além de mínimo, mediana e máximo. Como linha de base, usou-se uma busca aleatória com o mesmo número de avaliações do AG. Os experimentos rodaram em Python~3.13 (numpy, matplotlib~\cite{hunter2007matplotlib}, \deap{}~1.4) em uma CPU de 4 núcleos.
+Cada configuração foi executada 30 vezes de forma independente. A execução $r$ usa a \emph{seed} $2026+r$. Para cada execução registrou-se o melhor $F$ (ou $f$) ao final e, a cada geração, o melhor, o médio e o pior valor da população. As tabelas reportam média, variância e desvio padrão \emph{amostrais} ($n-1$) do melhor valor final, além de mínimo, mediana e máximo. Como linha de base, usou-se uma busca aleatória com o mesmo número de avaliações do AG. Os experimentos rodaram em Python~3.13 (numpy, matplotlib, \deap{}~1.4) em uma CPU de 4 núcleos.
 
 \subsection{Atividade 1}
 \label{sec:res_a1}
