@@ -1,0 +1,29 @@
+% Arquivo gerado automaticamente por src/ -- nao editar manualmente.
+\begin{table}[!t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Parâmetros do AG da Atividade 1 (implementação própria).}
+\label{tab:a1_params}
+\begin{tabular}{@{}lp{4.6cm}@{}}
+\toprule
+Parâmetro & Valor \\
+\midrule
+Representação & 12 inteiros (ida/volta de cada pesquisador), gene $\in\{0..9\}$ \\
+Tamanho da população $N$ & 150 \\
+Número de gerações $G$ & 400 \\
+Seleção & torneio determinístico, $k=3$, com reposição \\
+Cruzamento & uniforme, $p_c=0{,}90$ \\
+Mutação por gene & $p_m=0{,}05$ (50\% creep $\pm1$, resto reset) \\
+Mutação de bloco & $p_{\mathrm{shift}}=0{,}30$ por filho \\
+Elitismo & 5 melhores copiados sem alteração \\
+Avaliações/execução & 58.150 \\
+Execuções & 30 (seeds 2026--2055) \\
+\midrule
+$\lambda$ (custo da espera) & 1 EUR/min \\
+Check-in / translado & 60 min / 45 min \\
+Janela (cenário B) & 14:00--16:00 \\
+Penalidade (cenário B) & 1.000 EUR/restrição + 10 EUR/min \\
+\bottomrule
+\end{tabular}
+\end{table}

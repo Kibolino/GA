@@ -1,0 +1,1089 @@
+{
+  "params": {
+    "pop_size": 150,
+    "generations": 400,
+    "tournament_size": 3,
+    "crossover": "uniform",
+    "crossover_prob": 0.9,
+    "mutation_prob": 0.05,
+    "creep_prob": 0.5,
+    "shift_prob": 0.3,
+    "elitism": 5
+  },
+  "seed": 2026,
+  "runs": 30,
+  "scenarios": {
+    "A": {
+      "description": "Cenario A: ida e volta em dias distintos (sem janela) | lambda=1.0 EUR/min, check-in=60 min, translado=45 min",
+      "exact": {
+        "fitness": 2666.0,
+        "genes": [
+          4,
+          3,
+          4,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3,
+          4,
+          3
+        ],
+        "n_optima": 1,
+        "enum_time_s": 0.27575951800008625
+      },
+      "ga": {
+        "best": {
+          "n": 30,
+          "mean": 2674.0,
+          "var": 331.0344827586207,
+          "std": 18.19435304589368,
+          "min": 2666.0,
+          "median": 2666.0,
+          "max": 2714.0
+        },
+        "gap_pct_mean": 0.30007501875468867,
+        "success": 25,
+        "runs": 30,
+        "hit_gen": {
+          "n": 25,
+          "mean": 125.32,
+          "var": 13091.726666666667,
+          "std": 114.4190834898911,
+          "min": 19.0,
+          "median": 79.0,
+          "max": 370.0
+        },
+        "final_pop_mean": {
+          "n": 30,
+          "mean": 3203.7482222222225,
+          "var": 3099.7519867688393,
+          "std": 55.6754163591871,
+          "min": 3088.653333333333,
+          "median": 3205.63,
+          "max": 3342.9866666666667
+        },
+        "final_pop_std": {
+          "n": 30,
+          "mean": 539.4110256214537,
+          "var": 3344.9897480315512,
+          "std": 57.83588633393242,
+          "min": 429.31673512734477,
+          "median": 520.6614194137294,
+          "max": 660.5768243700762
+        },
+        "time_s": {
+          "n": 30,
+          "mean": 0.17199888919999468,
+          "var": 0.0001279208799380878,
+          "std": 0.011310211312707106,
+          "min": 0.16447615600009158,
+          "median": 0.16649098599987155,
+          "max": 0.21322431800035702
+        }
+      },
+      "random": {
+        "n": 30,
+        "mean": 3718.5333333333333,
+        "var": 15388.32643678161,
+        "std": 124.04969341671752,
+        "min": 3436.0,
+        "median": 3722.5,
+        "max": 3923.0
+      },
+      "best_solution": {
+        "scenario": "A",
+        "genes": [
+          4,
+          3,
+          4,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3,
+          4,
+          3
+        ],
+        "rows": [
+          {
+            "origin": "LIS",
+            "out_idx": 4,
+            "out_dep": 738,
+            "out_arr": 896,
+            "out_price": 172,
+            "wait_out": 6,
+            "ret_idx": 3,
+            "ret_dep": 667,
+            "ret_arr": 804,
+            "ret_price": 171,
+            "wait_ret": 95
+          },
+          {
+            "origin": "MAD",
+            "out_idx": 4,
+            "out_dep": 764,
+            "out_arr": 857,
+            "out_price": 134,
+            "wait_out": 45,
+            "ret_idx": 3,
+            "ret_dep": 633,
+            "ret_arr": 791,
+            "ret_price": 132,
+            "wait_ret": 61
+          },
+          {
+            "origin": "CDG",
+            "out_idx": 3,
+            "out_dep": 688,
+            "out_arr": 880,
+            "out_price": 248,
+            "wait_out": 22,
+            "ret_idx": 4,
+            "ret_dep": 757,
+            "ret_arr": 905,
+            "ret_price": 170,
+            "wait_ret": 185
+          },
+          {
+            "origin": "DUB",
+            "out_idx": 4,
+            "out_dep": 754,
+            "out_arr": 902,
+            "out_price": 109,
+            "wait_out": 0,
+            "ret_idx": 3,
+            "ret_dep": 633,
+            "ret_arr": 723,
+            "ret_price": 74,
+            "wait_ret": 61
+          },
+          {
+            "origin": "BRU",
+            "out_idx": 3,
+            "out_dep": 630,
+            "out_arr": 897,
+            "out_price": 290,
+            "wait_out": 5,
+            "ret_idx": 3,
+            "ret_dep": 651,
+            "ret_arr": 856,
+            "ret_price": 256,
+            "wait_ret": 79
+          },
+          {
+            "origin": "LHR",
+            "out_idx": 4,
+            "out_dep": 728,
+            "out_arr": 899,
+            "out_price": 149,
+            "wait_out": 3,
+            "ret_idx": 3,
+            "ret_dep": 632,
+            "ret_arr": 796,
+            "ret_price": 139,
+            "wait_ret": 60
+          }
+        ],
+        "van_out": 902,
+        "van_at_event": 947,
+        "van_drop": 572,
+        "cost": 2044.0,
+        "wait_out": 81.0,
+        "wait_ret": 541.0,
+        "wait": 622.0,
+        "penalty": 0.0,
+        "fitness": 2666.0
+      }
+    },
+    "B": {
+      "description": "Cenario B: mesa-redonda no mesmo dia (14:00-16:00) | lambda=1.0 EUR/min, check-in=60 min, translado=45 min, mesa-redonda 14:00-16:00",
+      "exact": {
+        "fitness": 3309.0,
+        "genes": [
+          1,
+          8,
+          1,
+          8,
+          1,
+          9,
+          1,
+          8,
+          0,
+          8,
+          1,
+          8
+        ],
+        "n_optima": 1,
+        "enum_time_s": 0.37393778599971483
+      },
+      "ga": {
+        "best": {
+          "n": 30,
+          "mean": 3309.0,
+          "var": 0.0,
+          "std": 0.0,
+          "min": 3309.0,
+          "median": 3309.0,
+          "max": 3309.0
+        },
+        "gap_pct_mean": 0.0,
+        "success": 30,
+        "runs": 30,
+        "hit_gen": {
+          "n": 30,
+          "mean": 21.333333333333332,
+          "var": 25.54022988505747,
+          "std": 5.05373425152703,
+          "min": 14.0,
+          "median": 21.5,
+          "max": 33.0
+        },
+        "final_pop_mean": {
+          "n": 30,
+          "mean": 5414.698444444444,
+          "var": 49356.776127765,
+          "std": 222.16384973205024,
+          "min": 4996.486666666667,
+          "median": 5400.450000000001,
+          "max": 5911.666666666667
+        },
+        "final_pop_std": {
+          "n": 30,
+          "mean": 3150.9585767891067,
+          "var": 68098.68672270369,
+          "std": 260.9572507570995,
+          "min": 2589.7163729977665,
+          "median": 3158.9825934664295,
+          "max": 3667.0237761324047
+        },
+        "time_s": {
+          "n": 30,
+          "mean": 0.20417306600002122,
+          "var": 0.0006604057045549154,
+          "std": 0.02569835995846652,
+          "min": 0.1706699500000468,
+          "median": 0.20786428700012038,
+          "max": 0.2728669429998263
+        }
+      },
+      "random": {
+        "n": 30,
+        "mean": 8602.133333333333,
+        "var": 896561.7747126437,
+        "std": 946.8694602280949,
+        "min": 5879.0,
+        "median": 8807.0,
+        "max": 9763.0
+      },
+      "best_solution": {
+        "scenario": "B",
+        "genes": [
+          1,
+          8,
+          1,
+          8,
+          1,
+          9,
+          1,
+          8,
+          0,
+          8,
+          1,
+          8
+        ],
+        "rows": [
+          {
+            "origin": "LIS",
+            "out_idx": 1,
+            "out_dep": 459,
+            "out_arr": 624,
+            "out_price": 219,
+            "wait_out": 21,
+            "ret_idx": 8,
+            "ret_dep": 1105,
+            "ret_arr": 1234,
+            "ret_price": 205,
+            "wait_ret": 100
+          },
+          {
+            "origin": "MAD",
+            "out_idx": 1,
+            "out_dep": 505,
+            "out_arr": 634,
+            "out_price": 157,
+            "wait_out": 11,
+            "ret_idx": 8,
+            "ret_dep": 1113,
+            "ret_arr": 1222,
+            "ret_price": 143,
+            "wait_ret": 108
+          },
+          {
+            "origin": "CDG",
+            "out_idx": 1,
+            "out_dep": 454,
+            "out_arr": 580,
+            "out_price": 324,
+            "wait_out": 65,
+            "ret_idx": 9,
+            "ret_dep": 1227,
+            "ret_arr": 1422,
+            "ret_price": 169,
+            "wait_ret": 222
+          },
+          {
+            "origin": "DUB",
+            "out_idx": 1,
+            "out_dep": 484,
+            "out_arr": 611,
+            "out_price": 95,
+            "wait_out": 34,
+            "ret_idx": 8,
+            "ret_dep": 1104,
+            "ret_arr": 1249,
+            "ret_price": 124,
+            "wait_ret": 99
+          },
+          {
+            "origin": "BRU",
+            "out_idx": 0,
+            "out_dep": 372,
+            "out_arr": 622,
+            "out_price": 230,
+            "wait_out": 23,
+            "ret_idx": 8,
+            "ret_dep": 1124,
+            "ret_arr": 1362,
+            "ret_price": 351,
+            "wait_ret": 119
+          },
+          {
+            "origin": "LHR",
+            "out_idx": 1,
+            "out_dep": 507,
+            "out_arr": 645,
+            "out_price": 139,
+            "wait_out": 0,
+            "ret_idx": 8,
+            "ret_dep": 1097,
+            "ret_arr": 1264,
+            "ret_price": 259,
+            "wait_ret": 92
+          }
+        ],
+        "van_out": 645,
+        "van_at_event": 690,
+        "van_drop": 1005,
+        "cost": 2415.0,
+        "wait_out": 154.0,
+        "wait_ret": 740.0,
+        "wait": 894.0,
+        "penalty": 0.0,
+        "fitness": 3309.0
+      }
+    }
+  },
+  "sensitivity": [
+    {
+      "factor": "Torneio $k$",
+      "field": "tournament_size",
+      "value": 2,
+      "is_base": false,
+      "mean": 2688.5,
+      "std": 24.26683560633375,
+      "var": 588.8793103448276,
+      "success": 15,
+      "runs": 30,
+      "hit_gen": 136.2
+    },
+    {
+      "factor": "Torneio $k$",
+      "field": "tournament_size",
+      "value": 3,
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "Torneio $k$",
+      "field": "tournament_size",
+      "value": 5,
+      "is_base": false,
+      "mean": 2704.6,
+      "std": 90.25198440840607,
+      "var": 8145.420689655173,
+      "success": 17,
+      "runs": 30,
+      "hit_gen": 73.82352941176471
+    },
+    {
+      "factor": "Cruzamento",
+      "field": "crossover",
+      "value": "one_point",
+      "is_base": false,
+      "mean": 2720.4333333333334,
+      "std": 130.91447150935878,
+      "var": 17138.598850574712,
+      "success": 20,
+      "runs": 30,
+      "hit_gen": 96.05
+    },
+    {
+      "factor": "Cruzamento",
+      "field": "crossover",
+      "value": "two_point",
+      "is_base": false,
+      "mean": 2708.0,
+      "std": 125.70134281783507,
+      "var": 15800.827586206897,
+      "success": 26,
+      "runs": 30,
+      "hit_gen": 79.07692307692308
+    },
+    {
+      "factor": "Cruzamento",
+      "field": "crossover",
+      "value": "uniform",
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "$p_c$",
+      "field": "crossover_prob",
+      "value": 0.6,
+      "is_base": false,
+      "mean": 2672.4666666666667,
+      "std": 27.770901830976737,
+      "var": 771.2229885057471,
+      "success": 28,
+      "runs": 30,
+      "hit_gen": 138.85714285714286
+    },
+    {
+      "factor": "$p_c$",
+      "field": "crossover_prob",
+      "value": 0.9,
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "$p_c$",
+      "field": "crossover_prob",
+      "value": 1.0,
+      "is_base": false,
+      "mean": 2735.6666666666665,
+      "std": 150.50497375979563,
+      "var": 22651.74712643677,
+      "success": 19,
+      "runs": 30,
+      "hit_gen": 141.8421052631579
+    },
+    {
+      "factor": "$p_m$ (gene)",
+      "field": "mutation_prob",
+      "value": 0.02,
+      "is_base": false,
+      "mean": 2701.4666666666667,
+      "std": 122.52845787206229,
+      "var": 15013.222988505744,
+      "success": 26,
+      "runs": 30,
+      "hit_gen": 98.23076923076923
+    },
+    {
+      "factor": "$p_m$ (gene)",
+      "field": "mutation_prob",
+      "value": 0.05,
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "$p_m$ (gene)",
+      "field": "mutation_prob",
+      "value": 0.1,
+      "is_base": false,
+      "mean": 2716.9333333333334,
+      "std": 113.15535044059267,
+      "var": 12804.133333333337,
+      "success": 14,
+      "runs": 30,
+      "hit_gen": 97.71428571428571
+    },
+    {
+      "factor": "$p_{\\mathrm{shift}}$",
+      "field": "shift_prob",
+      "value": 0.0,
+      "is_base": false,
+      "mean": 2839.9666666666667,
+      "std": 155.030916456916,
+      "var": 24034.585057471268,
+      "success": 7,
+      "runs": 30,
+      "hit_gen": 41.57142857142857
+    },
+    {
+      "factor": "$p_{\\mathrm{shift}}$",
+      "field": "shift_prob",
+      "value": 0.1,
+      "is_base": false,
+      "mean": 2750.2,
+      "std": 155.20407033411158,
+      "var": 24088.303448275856,
+      "success": 14,
+      "runs": 30,
+      "hit_gen": 145.85714285714286
+    },
+    {
+      "factor": "$p_{\\mathrm{shift}}$",
+      "field": "shift_prob",
+      "value": 0.3,
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "$p_{\\mathrm{shift}}$",
+      "field": "shift_prob",
+      "value": 0.5,
+      "is_base": false,
+      "mean": 2666.1,
+      "std": 0.5477225575051662,
+      "var": 0.3000000000000001,
+      "success": 29,
+      "runs": 30,
+      "hit_gen": 107.17241379310344
+    },
+    {
+      "factor": "Elitismo $e$",
+      "field": "elitism",
+      "value": 0,
+      "is_base": false,
+      "mean": 2826.5333333333333,
+      "std": 163.38841670278734,
+      "var": 26695.77471264368,
+      "success": 2,
+      "runs": 30,
+      "hit_gen": 81.0
+    },
+    {
+      "factor": "Elitismo $e$",
+      "field": "elitism",
+      "value": 1,
+      "is_base": false,
+      "mean": 2719.2,
+      "std": 123.53818340343479,
+      "var": 15261.68275862069,
+      "success": 18,
+      "runs": 30,
+      "hit_gen": 137.77777777777777
+    },
+    {
+      "factor": "Elitismo $e$",
+      "field": "elitism",
+      "value": 5,
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "Elitismo $e$",
+      "field": "elitism",
+      "value": 10,
+      "is_base": false,
+      "mean": 2683.733333333333,
+      "std": 88.4981719403379,
+      "var": 7831.9264367816095,
+      "success": 28,
+      "runs": 30,
+      "hit_gen": 96.0
+    },
+    {
+      "factor": "População $N$",
+      "field": "pop_size",
+      "value": 50,
+      "is_base": false,
+      "mean": 2764.0333333333333,
+      "std": 155.53655371079134,
+      "var": 24191.61954022988,
+      "success": 11,
+      "runs": 30,
+      "hit_gen": 115.81818181818181
+    },
+    {
+      "factor": "População $N$",
+      "field": "pop_size",
+      "value": 150,
+      "is_base": true,
+      "mean": 2674.0,
+      "std": 18.19435304589368,
+      "var": 331.0344827586207,
+      "success": 25,
+      "runs": 30,
+      "hit_gen": 125.32
+    },
+    {
+      "factor": "População $N$",
+      "field": "pop_size",
+      "value": 300,
+      "is_base": false,
+      "mean": 2679.8,
+      "std": 47.241419582162536,
+      "var": 2231.75172413793,
+      "success": 27,
+      "runs": 30,
+      "hit_gen": 131.88888888888889
+    }
+  ],
+  "tradeoff": [
+    {
+      "scenario": "A",
+      "lambda": 0.0,
+      "exact_F": 1566.0,
+      "exact_cost": 1566.0,
+      "exact_wait": 4329.0,
+      "ga_mean_F": 1566.0,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    },
+    {
+      "scenario": "A",
+      "lambda": 0.25,
+      "exact_F": 2105.25,
+      "exact_cost": 1793.0,
+      "exact_wait": 1249.0,
+      "ga_mean_F": 2166.9,
+      "ga_mean_gap_pct": 2.928393302458141,
+      "ga_max_gap_pct": 5.7356608478802995,
+      "ga_success": 0,
+      "runs": 10
+    },
+    {
+      "scenario": "A",
+      "lambda": 0.5,
+      "exact_F": 2355.0,
+      "exact_cost": 2044.0,
+      "exact_wait": 622.0,
+      "ga_mean_F": 2423.7,
+      "ga_mean_gap_pct": 2.9171974522292996,
+      "ga_max_gap_pct": 12.738853503184714,
+      "ga_success": 2,
+      "runs": 10
+    },
+    {
+      "scenario": "A",
+      "lambda": 1.0,
+      "exact_F": 2666.0,
+      "exact_cost": 2044.0,
+      "exact_wait": 622.0,
+      "ga_mean_F": 2680.4,
+      "ga_mean_gap_pct": 0.5401350337584396,
+      "ga_max_gap_pct": 1.800450112528132,
+      "ga_success": 7,
+      "runs": 10
+    },
+    {
+      "scenario": "A",
+      "lambda": 2.0,
+      "exact_F": 3202.0,
+      "exact_cost": 2136.0,
+      "exact_wait": 533.0,
+      "ga_mean_F": 3321.4,
+      "ga_mean_gap_pct": 3.7289194253591504,
+      "ga_max_gap_pct": 18.64459712679575,
+      "ga_success": 8,
+      "runs": 10
+    },
+    {
+      "scenario": "A",
+      "lambda": 4.0,
+      "exact_F": 4268.0,
+      "exact_cost": 2136.0,
+      "exact_wait": 533.0,
+      "ga_mean_F": 4588.5,
+      "ga_mean_gap_pct": 7.509372071227742,
+      "ga_max_gap_pct": 19.28303655107779,
+      "ga_success": 4,
+      "runs": 10
+    },
+    {
+      "scenario": "B",
+      "lambda": 0.0,
+      "exact_F": 2112.0,
+      "exact_cost": 2112.0,
+      "exact_wait": 1544.0,
+      "ga_mean_F": 2112.0,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    },
+    {
+      "scenario": "B",
+      "lambda": 0.25,
+      "exact_F": 2475.25,
+      "exact_cost": 2130.0,
+      "exact_wait": 1381.0,
+      "ga_mean_F": 2475.25,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    },
+    {
+      "scenario": "B",
+      "lambda": 0.5,
+      "exact_F": 2803.5,
+      "exact_cost": 2163.0,
+      "exact_wait": 1281.0,
+      "ga_mean_F": 2803.5,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    },
+    {
+      "scenario": "B",
+      "lambda": 1.0,
+      "exact_F": 3309.0,
+      "exact_cost": 2415.0,
+      "exact_wait": 894.0,
+      "ga_mean_F": 3309.0,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    },
+    {
+      "scenario": "B",
+      "lambda": 2.0,
+      "exact_F": 4109.0,
+      "exact_cost": 2601.0,
+      "exact_wait": 754.0,
+      "ga_mean_F": 4109.0,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    },
+    {
+      "scenario": "B",
+      "lambda": 4.0,
+      "exact_F": 5617.0,
+      "exact_cost": 2601.0,
+      "exact_wait": 754.0,
+      "ga_mean_F": 5617.0,
+      "ga_mean_gap_pct": 0.0,
+      "ga_max_gap_pct": 0.0,
+      "ga_success": 10,
+      "runs": 10
+    }
+  ],
+  "pareto_front": {
+    "A": [
+      [
+        1566.0,
+        4329.0
+      ],
+      [
+        1573.0,
+        3996.0
+      ],
+      [
+        1585.0,
+        3704.0
+      ],
+      [
+        1592.0,
+        3463.0
+      ],
+      [
+        1604.0,
+        3171.0
+      ],
+      [
+        1629.0,
+        3070.0
+      ],
+      [
+        1640.0,
+        2892.0
+      ],
+      [
+        1641.0,
+        2778.0
+      ],
+      [
+        1652.0,
+        2745.0
+      ],
+      [
+        1668.0,
+        2711.0
+      ],
+      [
+        1673.0,
+        2699.0
+      ],
+      [
+        1677.0,
+        2499.0
+      ],
+      [
+        1689.0,
+        2352.0
+      ],
+      [
+        1697.0,
+        2219.0
+      ],
+      [
+        1707.0,
+        2120.0
+      ],
+      [
+        1709.0,
+        1927.0
+      ],
+      [
+        1719.0,
+        1925.0
+      ],
+      [
+        1732.0,
+        1862.0
+      ],
+      [
+        1734.0,
+        1826.0
+      ],
+      [
+        1738.0,
+        1805.0
+      ],
+      [
+        1742.0,
+        1794.0
+      ],
+      [
+        1744.0,
+        1700.0
+      ],
+      [
+        1746.0,
+        1534.0
+      ],
+      [
+        1756.0,
+        1532.0
+      ],
+      [
+        1769.0,
+        1469.0
+      ],
+      [
+        1775.0,
+        1412.0
+      ],
+      [
+        1779.0,
+        1401.0
+      ],
+      [
+        1781.0,
+        1307.0
+      ],
+      [
+        1793.0,
+        1249.0
+      ],
+      [
+        1813.0,
+        1228.0
+      ],
+      [
+        1821.0,
+        1225.0
+      ],
+      [
+        1825.0,
+        1170.0
+      ],
+      [
+        1833.0,
+        1167.0
+      ],
+      [
+        1839.0,
+        1126.0
+      ],
+      [
+        1865.0,
+        1051.0
+      ],
+      [
+        1871.0,
+        1047.0
+      ],
+      [
+        1879.0,
+        1044.0
+      ],
+      [
+        1897.0,
+        972.0
+      ],
+      [
+        1905.0,
+        969.0
+      ],
+      [
+        1912.0,
+        953.0
+      ],
+      [
+        1938.0,
+        878.0
+      ],
+      [
+        1944.0,
+        874.0
+      ],
+      [
+        1945.0,
+        870.0
+      ],
+      [
+        1970.0,
+        799.0
+      ],
+      [
+        1971.0,
+        795.0
+      ],
+      [
+        2013.0,
+        748.0
+      ],
+      [
+        2018.0,
+        697.0
+      ],
+      [
+        2044.0,
+        622.0
+      ],
+      [
+        2110.0,
+        608.0
+      ],
+      [
+        2136.0,
+        533.0
+      ]
+    ],
+    "B": [
+      [
+        2112.0,
+        1544.0
+      ],
+      [
+        2118.0,
+        1439.0
+      ],
+      [
+        2130.0,
+        1381.0
+      ],
+      [
+        2151.0,
+        1339.0
+      ],
+      [
+        2163.0,
+        1281.0
+      ],
+      [
+        2196.0,
+        1250.0
+      ],
+      [
+        2208.0,
+        1192.0
+      ],
+      [
+        2240.0,
+        1182.0
+      ],
+      [
+        2273.0,
+        1151.0
+      ],
+      [
+        2285.0,
+        1093.0
+      ],
+      [
+        2337.0,
+        1083.0
+      ],
+      [
+        2342.0,
+        1082.0
+      ],
+      [
+        2370.0,
+        983.0
+      ],
+      [
+        2415.0,
+        894.0
+      ],
+      [
+        2556.0,
+        843.0
+      ],
+      [
+        2601.0,
+        754.0
+      ],
+      [
+        2804.0,
+        747.0
+      ]
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Empacotamento (gerado por scripts/make_zip.py)
+dist/
+
+# LaTeX (arquivos auxiliares; o PDF final fica versionado)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.blg
+paper/*.bbl
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/*.toc
+
+# Saídas do modo --quick (teste rápido do pipeline)
+results/quick/

@@ -1,0 +1,11 @@
+Cenario A: ida e volta em dias distintos (sem janela) | lambda=1.0 EUR/min, check-in=60 min, translado=45 min
+Cenario A | genes = [4, 3, 4, 3, 3, 4, 4, 3, 3, 3, 4, 3]
+Origem Ida (partida-chegada)   EUR  Esp. | Volta (partida-chegada)   EUR  Esp.
+LIS    12:18 - 14:56           172     6 | 11:07 - 13:24             171    95
+MAD    12:44 - 14:17           134    45 | 10:33 - 13:11             132    61
+CDG    11:28 - 14:40           248    22 | 12:37 - 15:05             170   185
+DUB    12:34 - 15:02           109     0 | 10:33 - 12:03              74    61
+BRU    10:30 - 14:57           290     5 | 10:51 - 14:16             256    79
+LHR    12:08 - 14:59           149     3 | 10:32 - 13:16             139    60
+Van sai de FCO as 15:02 | van deixa o grupo em FCO as 09:32
+Custo = EUR 2044 | espera = 622 min (ida 81 + volta 541) | penalidade = 0 | F = 2666.0

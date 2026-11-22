@@ -1,0 +1,5 @@
+# Python >= 3.10
+numpy>=1.24
+matplotlib>=3.7
+deap>=1.4        # usado somente na Atividade 2
+pytest>=7.0      # opcional: testes automatizados (tests/)

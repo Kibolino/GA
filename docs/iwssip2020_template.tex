@@ -1,0 +1,325 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{systeme}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{flushend}
+\usepackage{float}
+\usepackage{lmodern}
+\usepackage[]{algorithm2e}
+\usepackage{times}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{subfigure}
+\usepackage[a4paper, left=0.51in, right=0.51in, top=0.75in, bottom=1.69in]{geometry}
+
+\newcommand{\sandro}[1]{{\color{red}[#1]}}		
+\newcommand{\lucas}[1]{{\color{blue}[#1]}}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+    \IEEEoverridecommandlockouts
+\IEEEpubid{%
+\makebox[\columnwidth]{%
+978-1-7281-7539-3/20/\$31.00~\copyright{}2020 IEEE\hfill%
+} \hspace{\columnsep}\makebox[\columnwidth]{ }%
+}
+\begin{document}
+
+\title{ROI Extraction in Thermographic Breast Images Using Genetic Algorithms}
+
+
+
+\author{\IEEEauthorblockN{L. C. Mendes\IEEEauthorrefmark{1},
+        E. O. Rodrigues\IEEEauthorrefmark{2},
+        S. C. Izidoro\IEEEauthorrefmark{3},
+		A. Conci\IEEEauthorrefmark{4} and
+		P. Liatsis\IEEEauthorrefmark{5}}
+	\IEEEauthorblockA{\IEEEauthorrefmark{1,3}Institute of Technological Sciences, Universidade Federal de Itajubá, Itabira, Minas Gerais, Brazil}
+	\IEEEauthorblockA{\IEEEauthorrefmark{2}Academic Department of Informatics, Universidade Tecnológica Federal do Paraná, Pato Branco, Parana - Brazil}
+	\IEEEauthorblockA{\IEEEauthorrefmark{4}Computer Science Department, Universidade Federal Fluminense, Niteroi - Rio de Janeiro, Brazil}
+	\IEEEauthorblockA{\IEEEauthorrefmark{5}Department of Computer Science and Electrical Engineering, Khalifa University of Science and Technology, Abu Dhabi - UAE}
+	\textit{lucasmendes@unifei.edu.br, erickrodrigues@utfpr.edu.br, sandroizidoro@unifei.edu.br, aconci@ic.uff.br, panos.liatsis@ku.ac.ae}}
+
+\maketitle
+
+\begin{abstract}
+This work proposes the use of Genetic Algorithms (GA) to identify the area of the breast from the background in thermographic breast images. The proposed method uses color information, a fitness function based on cardioids, and GA. This is the first work in the literature to propose a Region of Interest (ROI) extraction based on GA and cariods. ROI extraction can improve the accuracy of cancer detection and assist with the standardization of acquisition protocols. The method is able to successfully separate the breast region in 52 out of 58 images, while being fully automatic, and not requiring manual selection of seed points.
+\end{abstract}
+\renewcommand\IEEEkeywordsname{Keywords}
+\begin{IEEEkeywords}
+Genetic Algorithms, Infrared Images, Thermography, Region of Interest, Evolutionary Algorithms, Image Segmentation.
+\end{IEEEkeywords}
+
+\section{Introduction}
+The demand for medical diagnosis systems has increased over recent years, together with the requirement for faster and more accurate analysis. Thermographic imaging is widely used in the detection of breast cancer \cite{ARORA2008523, kenn09, WISHART2010535, SCHAEFER20091133, Acharya2012}, with one of its key parts being Region of Interest extraction. Appropriate ROI extraction can improve the odds of a medical diagnosis system correctly detecting an image with the presence of cancer, as it excludes non-related information.
+
+Breast cancer is the most frequent cancer among women, impacting on 2.1 million women each year \cite{ref04}. The majority of diagnostic tools tend to be expensive, however, thermographic imaging has been identified as a potential and robust screening tool for early cancer detection \cite{ref02, breast14}.
+
+Evolutionary algorithms (EA) or Genetic algorithms (GA) are a branch of metaheuristics \cite{fractalIET}, based on natural selection and evolution. GA provide a useful tool in problem areas that do not yield readily to standard approaches \cite{ref05}. GA is a stochastic algorithm that outputs a near-optimal solution as long as the algorithm runs for sufficient times. Although it relies on natural stochastic mechanisms, its algorithmic pattern is entirely reproducible when information about the seed used to generate random numbers is preserved.
+
+To the best of the authors' knowledge, this work is the first in the literature to propose the use of cardioids and GA for segmentation of the breast region. In what follows, Section II provides a brief literature review, Section \ref{sec:materials} describes the proposed approach, and Sections \ref{sec:results} and \ref{sec:conclusion} provide the obtained results and conclusions, respectively. Section \ref{sec:discussion} provides a brief discussion.
+
+%Genetic algorithm is an evolutionary method based on natural evolution, as first described by himself in "On the Origin of Species" in 1959. This algorithm is composed by some fundamental parameters: Population, Individual, Selection and Elitism.
+
+%This work is focused in a Genetic algorithm that could help segment a Breast infrared image, leaving mainly the breast and chest image to a further analysis to help Oncologists and researchers find areas where cancer could be located. 
+
+\section{Literature Review}
+
+Region of interest (ROI) extraction \cite{roi16} is an important pre-processing step when it comes to image analysis and classification. Background information usually reduces the accuracy of classifiers, as potentially biased, unwanted information is introduced to the context of the problem \cite{novel16}. Figure \ref{img:roiclass} highlights the basic steps of a common image-based classification framework \cite{kMS}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=6.5cm]{Fluxograma01.png}
+\caption{\label{img:roiclass}Fundamental steps in Image-Based Classification.} 
+\end{figure}
+
+ROI extraction can be viewed as a pre-processing step or as a separate step, normally applied following image pre-processing. For instance, Suganthy et al., \cite{suganthi14} apply anisotropic diffusion to reduce noise before ROI extraction.
+
+Irrespective of its place in the general methodology, ROI extraction is a key step for several image processing approaches such as traffic sign detection \cite{traffic14}, thermographic breast image classification \cite{breast14}, finger-knuckle prints \cite{roi16}, computed tomography \cite{ct14}, palm print recognition \cite{harun14} and many others \cite{novel16,predic17,wee99,kwon15}.
+
+In a previous work \cite{ref01}, we used genetic algorithms to delineate the pericardium contour around the human heart, improving the classification results and the separation of the epicardial and mediastinal adipose tissues. In this work, we use the same principle while aiming to separate the region of interest (i.e., breast) in infrared images, excluding the background and other irrelevant structures.
+
+Suganthi et al., \cite{suganthi14} proposed a ROI extraction using anisotropic diffusion and level set-based snakes. Although their method provides good results, it requires some manual segmentation of the region or selection of seed points. In contrast, the algorithm proposed in this work does not require any seed points and is able to adapt to healthy and unhealthy breast images. 
+
+\section{Materials and methods}
+\label{sec:materials}
+This section describes the proposed methodology, including a brief description of GA, the parameters used to validate the algorithm, provides an overview of the dataset and the details of the cardioid approach. 
+
+\subsection{Dataset}
+
+We use infrared images of the breast from the Database for Mammography Research with Infrared Images (DMR-IR) \cite{ref02}, which can be found at \textit{\url{http://www.visual.ic.uff.br/dmi}}. These images were captured using the FLIR ThermaCam S45 camera. The project was approved by the Ethical committee of the Federal University of Pernambuco. Thermograms were recorded at the University Hospital and registered with the Brazilian Ministry of Health. 
+
+These images were taken from patients and volunteers older than 35 years and corrected for relative humidity and temperature of the room. Patients were requested to wait for 10min in order to stabilize their metabolism. A total of 58 images were randomly selected for this work. The dataset contains images of healthy and sick breasts. Sick breasts include breast diseases such as cancer.
+
+%The database contains images of healthy and unhealthy women. Unhealthy women includes breast disease such as cancer, this heterogeneity  of images works well with the concept oh the algorithm in this work, since we're looking to create a new diagnosis tool that should help to clarify both healthy and sick patients \cite{ref02}.
+
+\subsection{Genetic Algorithm}
+
+GA exhibit a unique characteristic, which differs from traditional search methods, i.e., they explore the search space by considering different sets of solutions (individuals) in parallel \cite{ref03}. This concept is what makes GA a good option in solving this problem as images contain a total of 307200 pixels (480x640), which enables parallel evaluation of cardioids. A cardioid is heart-shaped shape, described in cartesian form as:
+
+\begin{equation}
+\label{eq:carteX}
+    x = r \cos \theta
+\end{equation}
+\begin{equation}
+\label{eq:carteY}
+    y = r \sin \theta
+\end{equation}
+
+However, it is more convenient to use the polar coordinates form for the cardioid, given by:
+
+\begin{equation}
+    \label{eq:polarCard}
+    r = a ( 1 + \sin \theta)
+\end{equation}
+
+\noindent
+where \textit{a} is the base of the cardioid, which is used to define the size of the cardioid in each generation of the GA. \textit{r} describes the radius of the cardioid in relation to its center for each angle $\theta$, varying from 0 to 2$\pi$. %Furthermore, $C_r$ is the circle radius $C_x$ is the x position of the circle and $C_y$ its central y position. %esses C_r, C_x e C_y não tão em equação nenhuma entrao n precisa comentar
+
+%lembrar de olhar aqui dps
+As thermographic images are displayed as greyscale images, we separate the 8 bit interval [0,255] in four groups, i.e., $A=[0,44]$, $B=[45,119]$, $C=[120,209]$ and $D=[210,255]$, as shown in Figure \ref{img:grupos}. Groups A and D (higher temperatures) should not be engulfed by the cardioid. Group A represents the background of the image and Group D contains areas of the body, which are irrelevant in terms of breast analysis, typically corresponding to the belly and the arms. Group C typically contains the area of interest, while Group B can be found in the arms, abdomen, and chest.
+%which in most cases are the areas under the breast, armpits and neck, this notations are easier to notice in healthy women, the area D are specially interesting because it surround all the breast and chest area. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=6cm]{GRUPOS DE COR.png}
+\caption{\label{img:grupos}Grayscale groups used in the fitness function. Pixel group C is indicative of the area of interest.} 
+\end{figure}
+
+The fitness function of the GA is described by Equation \ref{eq:fitness}, where the weights (W) were empirically assigned to each group (A to D) based on its importance. Specifically, the values of the weights are as follows $W_A = 300$, $W_B = 50$, $W_C = 250$, $W_D = 275$ and $W_T = W_A+W_B+W_C+W_D$, and the fitness function $f$ is given by:
+
+\begin{equation}
+\label{eq:fitness}
+    f = \frac{(B W_B + C W_C) - (A W_A + D W_D)}{|W_T|}
+\end{equation}
+
+%até aqui
+
+%EXPLIQUEI OS 3 VETORES AQUI
+Each individual in the GA population is composed of three gray code vectors (which is also a binary code). The first part describes the cardioid's position in the x axis, the second part describes its position in the y axis, and the last part describes the cardioid base. Caruana and Schaffer \cite{ref06} argue that gray coding is generally superior to binary coding for function optimization using GA. Analysis suggests that gray coding eliminates the ``Hamming cliff'' problem, which creates difficult transitions when using a binary representation.
+
+
+We start with 60 randomly generated individuals in the population. Next, the algorithm starts a loop of \textit{n} generations. We use the tournament selection method \cite{yang97}, which consists of randomly choosing $k$ individuals in the population and picking the one with the higher fitness. In our case, $k$ was 2. This operation is repeated twice and both individuals selected by the tournament have 70\% chance to be subjected to  crossover.
+
+%CITEI O ARTIGO PARA O TORNEIO
+%TORNEIO EXPLICADO
+
+The crossover of the individuals ($i_1 , i_2$) generates 2 children ($i_{c1}, i_{c2}$) that aggregate 2 pieces of each vector of each individual. The vectors receive a random ``cut'' position and the child $i_{c1}$ is assembled from the first part of $i_1$ and the second part of $i_2$, while $i_{c2}$ is assembled using the first part of $i_2$ and the last part of $i_1$. This is called the one-point  crossover, i.e., when a single cut in the genotype is performed \cite{poli98}.
+%CITEI O ONE-POINT CROSSOVER
+%COMENTEI O QUE É O ONE-POINT
+
+After that, both children are subject to a 2\% probability of mutation. In case a child enters the mutation process, each vector has a 50\% chance of going through a mutation. The one-point mutation was used in all the phases.
+
+After 25 iterations (i.e., half the size of the population), all the new individuals compose a new population. If this new population does not have 60 individuals, then all of the individuals with the higher fitness scores are transferred to the new population, and the individual with the highest score always goes to the new population (elitist strategy).
+
+% The GA evaluates and organizes individuals by their fitness function, \ref{eq:fitness} function analyses each pixel of the image and evaluates whether the pixel radius, in relation of the center of the cardioid, is equal or less than the individual cardioids, the pixels inside the cardioid are sorted in 4 groups based on itsgrayscale value. The count of pixels in each group will be applied in equation \ref{eq:fitness}.
+
+The GA evaluates and organizes individuals by their fitness function. Function \ref{eq:fitness} analyses each pixel of the image and evaluates whether the pixel radius, in relation to the center of the cardioid, is equal or less than the individual cardioid's. The pixels inside the cardioid are sorted into 4 groups based on their grayscale value, as previous addressed. Algorithm  \ref{alg:alg} illustrates the GA in the form of a pseudo-algorithm. %The count of pixels in each group will be applied in Function \ref{eq:fitness}. 
+          
+
+
+%Algorithm \ref{alg:1} describes the proposed GA in more detail.
+
+\begin{algorithm}[ht]
+\label{alg:1}
+ \KwData{$\Omega$ is the population (60 individuals), \textit{n} is the total amount of generations of the algorithm, \textit{i} is the individual \textit{i} = [x position, y position, base], $\mu$ represents the mutation operation, $\Phi$ represents the cross-over operation and \textit{random(0,100)} returns a randomly generated number between 0 and 100.}
+\Begin{
+     Create a random population with 60 individuals and place it in $\Omega$\;
+     \While{iterations  $<$ \textit{n}}{
+      Select $i_1$ and $i_2$ in $\Omega$\;
+      \uIf{random(0,100) $\leq$ 70\%}{
+       $i_{c1},i_{c2} = \Phi(i_1,i_2)$
+       }
+      \uIf{random(0,100) $\leq$ 2\%}{
+        \uIf{random(0,100) $\geq$ 50\%}{$\mu(i_{c1})$}
+        \uIf{random(0,100) $\geq$ 50\%}{$\mu(i_{c2})$}
+      }
+      
+      iterations++\;
+      Place the best individual in $\Omega$ and remove the worst ones (the population has a maximum number of 60 individuals)\;
+     }
+    Choose the best individual in $\Omega$\;
+}
+\caption{Proposed genetic algorithm.}
+\label{alg:alg}
+\end{algorithm}
+
+
+
+\section{Results}
+\label{sec:results}
+
+Figure \ref{tab3} shows the top individuals (the ones with the highest fitness score) in four healthy women after the convergence of the GA. Figure \ref{tab4} shows the top individuals in four women affected by breast disease. The parameters of the GA were: (1) population size: 60 individuals, (2) number of generations: 50, (3) crossover rate: 70\%, (4) mutation rate: 2\%, (5) tournament: 2. 
+
+\begin{figure}[ht]
+  \centering
+  \label{fig:helathy3}
+  \includegraphics[width=4cm]{cardioidRegular1.jpg}
+  \includegraphics[width=4cm]{healthy10.jpg}
+  \includegraphics[width=4cm]{resultado494.jpg}
+  \includegraphics[width=4cm]{healthy4.jpg}
+  \caption{\label{tab3}Examples of ROI detection in healthy women.The ROI is the area within the green curve.}
+\end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=4cm]{sick10.jpg}
+  \includegraphics[width=4cm]{doente7.jpg}
+  \includegraphics[width=4cm]{sick23.jpg}
+  \includegraphics[width=4cm]{resultado0.jpg}
+  \caption{\label{tab4}Examples of ROI detection in women with breast disease.The ROI is the area within the green curve.} 
+\end{figure}
+
+
+
+In order to verify the accuracy of our findings, the GA was run 30 times and the average, minimum, maximum, mean, and median fitness values were recorded for 10, 50, 100, and 200 generations. This was supported parameter optimization, while avoiding unnecessary use of computing resources.
+
+
+\begin{table}[H]
+\label{tab:garesults}
+\centering
+\caption{Fitness statistics for varying generation numbers} \label{tab:generations1} 
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{Generations} & \textbf{10} & \textbf{50} & \textbf{100} & \textbf{200} & \textbf{SD} \\ \midrule
+\textbf{Mean}        & 3.75        & 5.40        & 5.75         & 5.72         & 0.94       \\
+\textbf{Median}      & 3.81        & 5.58        & 5.58         & 5.88         & 0.94       \\
+\textbf{Min}         & 3.76        & 5.30        & 5.82         & 5.40         & 0.90       \\
+\textbf{Max}         & 3.90        & 5.58        & 5.82         & 5.88         & 0.93       \\
+\textbf{Time (s)}    & 407.78      & 1,870.47    & 4,778.10     & 8,691.61     & -           \\ \bottomrule
+\end{tabular}
+\end{table}
+
+
+From Table \ref{tab:garesults}, it is possible to observe a substantial increase in the average fitness score from 10 to 50 generations (54.55\%), and a slower increase right after, between 50 to 200 generations (4.08\% from 50 to 100 and 2.55\% from 100 to 200). Meanwhile, the time increases nearly linearly with the number of generations. In summary, a sharp evolutionary pressure is observed in the first 50 generations. Following this, there is little variation in terms of fitness score statistics. %This kind of work is complex to validated since it doesn't have a gold standard reference \cite{galvao13}.
+
+Figure \ref{figroi} shows the best cardioids created over the generations. Figure \ref{figroi}-(a) shows a healthy case and Figure \ref{figroi}-(b) a sick case. Color red represents 10 generations, blue 50 generations, yellow 100 generations and green 200 generations. In Figure \ref{figroi}-(a), yellow and green cardioids overlap.
+
+\begin{figure}[ht]
+  \centering
+  \label{fig:helathy3}
+   \subfigure[Healthy case.]{
+      \includegraphics[width=7cm]{finalhealthy.png}
+  }
+   \subfigure[Sick case.]{
+      \includegraphics[width=7cm]{finalsick.png}
+  }
+  \caption{\label{figroi}Cardiod results over different generations. Contour color is as follows: Red (10 generations), Blue (50 generations), Yellow (100 generations) and Green (200 generations).}
+\end{figure}
+
+
+%\subsection{Related Works}
+
+\section{Discussion}
+\label{sec:discussion}
+
+The concept behind this work was to identify individual breasts by 2 independent ellipses (i.e., one for the left breast and the other for the right). However, this approach lead to one ellipse growing over the majority of the area of interest (both breasts and chest), while the other tended to stay small and started to fit itself in one of the arms. 
+
+At this point, we started to evaluate two other approaches that consisted of analysing the intersection of the two circles and included this information in the fitness function. This method worked well for healthy patients but for the sick patients it started to fail, mostly because of the discrepant temperature patterns among the left and right breasts in sick patients.
+
+%After the two circles experiment, we observed that we could one single circle fit in the ROI, so the individual no longer had two circles, but one. As using 1 circle we notice some problems, first the circle doesn't describe the ROI format precisely and we tried the first approach using a cardioid, but instead of use this as part of the individual, we only used it to trim the circle and get a better segmentation of the ROI but as the Black color have a highly negative weight, and in the protocol acquisition of the images, the patients used marker (Black in the IR image) above the breast and in the center horizontally, the circles tended to escape from the region of interest and goes up. This method had better results but still have a lot of problems by using the cardioid just as a trim parameter like in figure.
+
+Another major issue was the black metallic marker positioned below the breast during the acquisition of the images. As the black color has a significant negative weight in the fitness function, the circles tended to escape from the region of interest and started to move upwards. This issue still persists even with the use of the cardioid formulation.
+
+We believe that the two ellipses approach is feasible (one ellipse for each breast, and both composing a single individual in the population), however, it requires finetuning. Another possible approach to overcome the black marker is to replace it with random grey information. In this sense, the marker will have little or no effect in the fitness function.
+
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+%antigo
+This work proposes a ROI extraction methodology for thermographic breast images based on genetic algorithms. We exploit the shape of cardioids jointly with gray level data to define a fitness function that is evaluated by a genetic algorithm over time. Our method does not require manual placement of seed points and is therefore entirely automatic, in contrast to other works in the literature \cite{suganthi14}.
+
+%Paragrafo Duplicado
+%Our method was able to visually segment 52 images out of 58 where it did not exclude any critical breast area and removed substantial parts of the background information. The GA showed better results after 50 generations, where it takes approximately 60 seconds to identify the ROI. However, this methodology can still be further improved in several directions. 
+
+The proposed algorithm was able to provide perfect ROI extraction in 16 out of 58 images and satisfactory results in a further 36 cases. In the case of perfect ROI extraction, we consider a tight and correct ROI extraction with no exclusion of critical breast parts. We consider instances of minor or very little exclusion of critical parts in the breasts as satisfactory results.  The remaining 6 cases provided poor results, where the cardiod ended up being displaced over the arm of the patient or another unrelated area.
+
+In terms of time evolution, the GA showed better results after 50 generations, requiring approximately 60 seconds to identify the ROI. Results tend to be better with healthy women as gray level information is more homogeneous. In contrast, sick women (mainly those who have been sick for a long time and with more severe instances of disease) present substantially less homogeneous gray level intensity patterns.
+
+
+
+\subsection{Future Works}
+
+The proposed methodology can be further improved in several directions such as using texture information. For instance, information from the application of image processing filters, e.g., anisotropic diffusion, features from the co-occurrence matrix, run-length matrix, sharpening, Laplacian and gradient filters, morphological operations, etc \cite{novel16}, can be accommodated in the fitness function. GA parameters and fitness function can also be further improved and adjusted to produce more accurate results. Similarity computations can also be used \cite{combining18}.
+
+%ver aqui dps (dps que tu acertar)
+%novo
+%To define what is a good result we establish X criteria, first the cardioid must not cut pixels from the bottom and sides of pacient's mamma, this is fundamental as the mamma is one essential part of the ROI, second is very important that the GA's selected area has the minimum black pixels as possible this exclude most of the background of the image, third the algorithm must ignore the axils and neck.
+
+%Based on this criteria we tested the methodology 10 times in 30 different images where the algorithm achieve a 80\% success rate (24 images) and 20\% (6 images) the algorithm missed the ROI. In the images where the algorithm fails we suppose 2 main reasons to the error, in the images the method missed the ROI, 4 was sick women and 2 healthy ones, we suppose that as in sick people the IR image god a more homogeneous distribution of color in the image's pixels in this cases the cardioid expands to almost all body and sometime even fit all the images area (640x480 pixels),in the cases that the marker used in the dataset acquisition protocol is located upper in the image, (which is black in the IR image), made the fitness function in that area lower and cause the cardioid to goes up in the image.
+
+
+Future work will also consider the effect of applying affine transforms to the cardioid, including rotation. Warps and distortions can also be very efficient when it comes to adjusting the shape of the cardiod to the different types of breasts. The parameters for these transforms can be included in each individual of the GA. Still, regarding GA, new improvements covering different types of operators, evaluation function and selection, as well as new approaches (GA+Fuzzy or GA+RNA) can be explored. 
+
+%Other geometrical forms can also be used to improve accuracy. Parameters such as groups A to D, which separate grayscale regions, could also be better tuned.%
+
+%Furthermore, the approach using two circles, one for each breast can be further explored as we did not try to force both circles to be of similar sizes and stay away from each other by some margin. This method could be very interesting and could better delineate malignant breasts, as their shape, size, and texture often do not match.
+
+%repetitivo
+%There are many possibilities of work that could improve the infrared breast image segmentation, the first step is to implement a rotation phenotype in the cardioid, it will help to fit the ROI in cases of a more serious diseases or when the patient had done some surgical intervention, because in most of this cases there is less symmetry in the breast area. 
+
+%There are other implementation forms to improve the actual approach, more geometrical forms could be used to better select the ROI just as rectangles that would limit the upper and lower area of the image, to discard the not interesting areas. Other improve could be to flat the cardioid vertically it will also make possible cut the neck and abdominal area. 
+
+%There also different cardioid equations that are more complex and could make a better segmentation of the ROI.As a complement method, a GA could be used first to define which is the better equation to segment each Image and give an optimized result for each diagnosis demand.
+
+%As the base algorithm evolve is expected to apply parallelism concepts to improve the results and also create a faster Computer Aided Diagnosis(CAD). The GA image segmentation could use the General-purpose computing on graphics processing units (GPGPU) concepts to process all the pixels at once and other tasks where it's relevant. there is also unique GAs concepts only applicable in parallelism such as genetic algorithm based on migration and artificial selection (GAMAS)s. "GAMAS expands the basic concepts of a simple
+%genetic algorithm (SGA) to include fitness scaling, the
+%evolution of multiple parallel populations or species, and
+%three new operators-migration, artificial selection, and
+%recycling" \cite{potts94}.
+
+%\section*{References}
+
+\bibliographystyle{unsrt}
+\bibliography{icdp2009}
+
+\end{document}
