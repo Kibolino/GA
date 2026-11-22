@@ -8,7 +8,7 @@ Uso (a partir da raiz do projeto)::
 
 Etapas:
 1. ótimo exato de cada cenário por enumeração decomposta (validação);
-2. 30 execuções independentes do AG por cenário (seeds ``seed .. seed+29``);
+2. ``--runs`` execuções independentes do AG por cenário (padrão 30; seeds ``seed .. seed+runs-1``);
 3. linha de base: busca aleatória com o mesmo nº de avaliações;
 4. análise de sensibilidade (um fator por vez) no cenário A;
 5. varredura de lambda (custo x espera) e fronteira de Pareto exata;
@@ -146,7 +146,7 @@ def table_stats(path: Path, summary: dict) -> None:
         row("Busca aleatória: média", lambda s: fmt_num(s["random"]["mean"], 1)),
         row("Busca aleatória: desvio padrão", lambda s: fmt_num(s["random"]["std"], 1)),
     ]
-    write_latex_table(path, ["Métrica (30 execuções)"] + [f"Cen. {k}" for k in keys], rows,
+    write_latex_table(path, [f"Métrica ({summary['runs']} execuções)"] + [f"Cen. {k}" for k in keys], rows,
                       "@{}l" + "r" * len(keys) + "@{}",
                       "Estatísticas do melhor fitness final $F$ (EUR) do AG na Atividade 1.",
                       "tab:a1_stats",

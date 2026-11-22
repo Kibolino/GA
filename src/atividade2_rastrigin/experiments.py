@@ -141,7 +141,7 @@ def table_stats(path: Path, summary: dict) -> None:
         row("Busca aleatória: média", lambda s: fmt_num(s["random"]["mean"], 3)),
         row("Busca aleatória: desvio padrão", lambda s: fmt_num(s["random"]["std"], 3)),
     ]
-    write_latex_table(path, ["Métrica (30 execuções)"] + [f"$n={n}$" for n in dims], rows,
+    write_latex_table(path, [f"Métrica ({summary['runs']} execuções)"] + [f"$n={n}$" for n in dims], rows,
                       "@{}l" + "r" * len(dims) + "@{}",
                       "Estatísticas do melhor valor final de $f$ na Atividade 2.",
                       "tab:a2_stats",
