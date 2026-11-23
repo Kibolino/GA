@@ -3,7 +3,7 @@
 % Baseado no template IEEE (IWSSIP) fornecido na disciplina.
 % Compilar: pdflatex main && bibtex main && pdflatex main && pdflatex main
 %           (ou: latexmk -pdf main.tex). Compativel com Overleaf.
-% As tabelas em tables/ e as figuras em figures/ sao geradas por run_all.py.
+% As tabelas em tables/ e as figuras em figures/ sao geradas por executar_tudo.py.
 % ============================================================================
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
@@ -218,7 +218,7 @@ f(\mathbf{x})=An+\sum_{i=1}^{n}\left[x_i^2-A\cos(2\pi x_i)\right],\quad A=10,
 com $x_i\in[-5{,}12;\,5{,}12]$ e mínimo global $f(\mathbf{0})=0$. Cada coordenada contribui com $x_i^2+A(1-\cos 2\pi x_i)\ge0$, termo que tem mínimos locais próximos de cada inteiro $k$, de valor $\approx k^2$. Assim, $f\approx m$ indica $m$ coordenadas presas em $\pm1$. Além disso, $f<0{,}5$ só ocorre se todo $|x_i|\lesssim0{,}05$, ou seja, se a solução está na bacia do ótimo global. Para $n=2$ existem cerca de 100 mínimos locais no domínio. Para $n=10$, o número cresce exponencialmente.
 
 \subsection{Representação e operadores}
-O cromossomo é uma lista de $n$ reais (\code{creator.Individual}, que herda de \code{list}), e a fitness é o próprio $f$ com peso $-1$ (minimização). Como o domínio é uma caixa, foram usados operadores \emph{limitados}, que nunca geram genes fora de $[-5{,}12;\,5{,}12]$:
+O cromossomo é uma lista de $n$ reais (\code{creator.Individuo}, que herda de \code{list}), e a fitness é o próprio $f$ com peso $-1$ (minimização). Como o domínio é uma caixa, foram usados operadores \emph{limitados}, que nunca geram genes fora de $[-5{,}12;\,5{,}12]$:
 \begin{itemize}
 \item \textbf{Cruzamento SBX}~\cite{deb1995sbx}: os filhos ficam a uma distância dos pais controlada pelo índice $\eta_c$. Com $\eta_c$ alto, os filhos ficam perto dos pais; com $\eta_c$ baixo, a busca é mais exploratória. O operador atua coordenada a coordenada, o que combina com a separabilidade da Rastrigin.
 \item \textbf{Mutação polinomial}: perturba cada gene com probabilidade $p_{\text{gene}}=1/n$, com amplitude controlada por $\eta_m$.
@@ -226,7 +226,7 @@ O cromossomo é uma lista de $n$ reais (\code{creator.Individual}, que herda de 
 \end{itemize}
 
 \subsection{Elitismo no DEAP}
-O algoritmo pronto \code{algorithms.eaSimple} não é elitista: o \code{HallOfFame} apenas \emph{armazena} o melhor indivíduo, sem devolvê-lo à população. Por isso foi escrito um laço geracional próprio (\code{ea\_elitist}, Listagem~\ref{lst:elit}). A cada geração, ele copia os $e=2$ melhores e completa a população com $N-e$ filhos gerados por \code{varAnd}. Estatísticas, \code{Logbook} e \code{HallOfFame} continuam sendo os da biblioteca. A Tabela~\ref{tab:a2_params} resume os parâmetros.
+O algoritmo pronto \code{algorithms.eaSimple} não é elitista: o \code{HallOfFame} apenas \emph{armazena} o melhor indivíduo, sem devolvê-lo à população. Por isso foi escrito um laço geracional próprio (\code{ag\_elitista}, Listagem~\ref{lst:elit}). A cada geração, ele copia os $e=2$ melhores e completa a população com $N-e$ filhos gerados por \code{varAnd}. Estatísticas, \code{Logbook} e \code{HallOfFame} continuam sendo os da biblioteca. A Tabela~\ref{tab:a2_params} resume os parâmetros.
 
 \input{tables/tab_a2_parametros.tex}
 
@@ -239,69 +239,69 @@ O \deap{} (\emph{Distributed Evolutionary Algorithms in Python}) não impõe um 
 pip install deap numpy
 \end{lstlisting}
 
-\textbf{Passo 1 -- Tipos com \code{creator}.} O \code{creator.create} gera classes em tempo de execução. Aqui, uma \code{Fitness} com pesos (sinal $-1$ para minimizar, $+1$ para maximizar; uma tupla com vários pesos define um problema multiobjetivo) e um \code{Individual} que é uma \code{list} com um atributo \code{fitness}.
+\textbf{Passo 1 -- Tipos com \code{creator}.} O \code{creator.create} gera classes em tempo de execução. Aqui, uma \code{Fitness} com pesos (sinal $-1$ para minimizar, $+1$ para maximizar; uma tupla com vários pesos define um problema multiobjetivo) e um \code{Individuo} que é uma \code{list} com um atributo \code{fitness}.
 \begin{lstlisting}
 import random
 from deap import base, creator, tools, algorithms
 
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-creator.create("Individual", list, fitness=creator.FitnessMin)
+creator.create("Individuo", list, fitness=creator.FitnessMin)
 \end{lstlisting}
 
 \textbf{Passo 2 -- \code{base.Toolbox} e inicialização.} O método \code{register(alias, função, *args)} guarda uma função com argumentos pré-fixados (equivale a \code{functools.partial}). O \code{tools.initRepeat} chama o gerador $n$ vezes e embala o resultado no contêiner indicado.
 \begin{lstlisting}
-LOW, UP, N = -5.12, 5.12, 10
+LIM_INF, LIM_SUP, N = -5.12, 5.12, 10
 tb = base.Toolbox()
-tb.register("attr_float", random.uniform, LOW, UP)   # um gene
-tb.register("individual", tools.initRepeat,
-            creator.Individual, tb.attr_float, n=N)  # n genes
-tb.register("population", tools.initRepeat, list, tb.individual)
-pop = tb.population(n=200)
+tb.register("gene", random.uniform, LIM_INF, LIM_SUP)
+tb.register("individuo", tools.initRepeat,
+            creator.Individuo, tb.gene, n=N)
+tb.register("populacao", tools.initRepeat, list, tb.individuo)
+pop = tb.populacao(n=200)
 \end{lstlisting}
 
-\textbf{Passo 3 -- Avaliação e operadores.} A função de avaliação \textbf{deve devolver uma tupla}, mesmo com um único objetivo. Os nomes \code{mate}, \code{mutate}, \code{select} e \code{evaluate} são os que os algoritmos prontos procuram na toolbox. Para outra representação, basta trocar os operadores, por exemplo \code{cxUniform} e \code{mutUniformInt} para inteiros.
+\textbf{Passo 3 -- Avaliação e operadores.} A função de avaliação \textbf{deve devolver uma tupla}, mesmo com um único objetivo. Os nomes \code{mate}, \code{mutate}, \code{select} e \code{evaluate} são os que os algoritmos prontos procuram na toolbox, por isso ficam em inglês; os demais (\code{gene}, \code{individuo}, \code{populacao}) são livres. Para outra representação, basta trocar os operadores, por exemplo \code{cxUniform} e \code{mutUniformInt} para inteiros.
 \begin{lstlisting}
-def evaluate(ind):
-    return (rastrigin(ind),)          # tupla!
+def avaliar(ind):
+    return (rastrigin(ind),)
 
-tb.register("evaluate", evaluate)
+tb.register("evaluate", avaliar)
 tb.register("mate", tools.cxSimulatedBinaryBounded,
-            eta=15.0, low=LOW, up=UP)
+            eta=15.0, low=LIM_INF, up=LIM_SUP)
 tb.register("mutate", tools.mutPolynomialBounded,
-            eta=20.0, low=LOW, up=UP, indpb=1.0 / N)
+            eta=20.0, low=LIM_INF, up=LIM_SUP, indpb=1.0 / N)
 tb.register("select", tools.selTournament, tournsize=3)
 \end{lstlisting}
 
 \textbf{Passo 4 -- Estatísticas, \code{Logbook} e \code{HallOfFame}.} O \code{Statistics} aplica funções (média, mínimo etc.) sobre uma chave extraída de cada indivíduo. Os algoritmos gravam o resultado por geração em um \code{Logbook}, de onde saem as curvas de convergência. O \code{HallOfFame} guarda os melhores já vistos.
 \begin{lstlisting}
 import numpy as np
-stats = tools.Statistics(key=lambda ind: ind.fitness.values[0])
-for name, fn in [("min", np.min), ("avg", np.mean),
-                 ("max", np.max), ("std", np.std)]:
-    stats.register(name, fn)
-hof = tools.HallOfFame(1)
+estat = tools.Statistics(key=lambda ind: ind.fitness.values[0])
+for nome, fn in [("melhor", np.min), ("media", np.mean),
+                 ("pior", np.max), ("desvio", np.std)]:
+    estat.register(nome, fn)
+hall = tools.HallOfFame(1)
 \end{lstlisting}
 
 \textbf{Passo 5 -- Executar.} Com tudo registrado, um algoritmo pronto resolve o problema. O \code{eaSimple} aplica \code{varAnd} (cruzamento com \code{cxpb} e mutação com \code{mutpb}) e substitui a população inteira. O \code{eaMuPlusLambda} escolhe os sobreviventes entre pais e filhos e, com \code{selBest} como seletor, torna-se elitista. O \deap{} usa o módulo \code{random}, portanto \code{random.seed} torna a execução reprodutível.
 \begin{lstlisting}
 random.seed(2026)
 pop, log = algorithms.eaSimple(pop, tb, cxpb=0.9, mutpb=1.0,
-                               ngen=500, stats=stats,
-                               halloffame=hof, verbose=False)
-print(hof[0].fitness.values[0], log.select("min")[-1])
+                               ngen=500, stats=estat,
+                               halloffame=hall, verbose=False)
+print(hall[0].fitness.values[0], log.select("melhor")[-1])
 \end{lstlisting}
 
 \textbf{Personalizando o laço.} Como os blocos são independentes, é simples escrever o próprio laço. A Listagem~\ref{lst:elit} mostra a parte central do laço elitista usado neste trabalho. Note que o \code{varAnd} clona os pais e invalida a fitness só de quem foi alterado, então apenas esses indivíduos são reavaliados.
 \begin{lstlisting}[caption={Laço geracional com elitismo explícito.},label={lst:elit}]
-for gen in range(1, ngen + 1):
+for g in range(1, n_geracoes + 1):
     elite = [tb.clone(i) for i in tools.selBest(pop, e)]
-    off = tb.select(pop, len(pop) - e)
-    off = algorithms.varAnd(off, tb, cxpb, mutpb)
-    inval = [i for i in off if not i.fitness.valid]
-    for ind, fit in zip(inval, tb.map(tb.evaluate, inval)):
+    filhos = tb.select(pop, len(pop) - e)
+    filhos = algorithms.varAnd(filhos, tb, p_c, p_m)
+    invalidos = [i for i in filhos if not i.fitness.valid]
+    for ind, fit in zip(invalidos, tb.map(tb.evaluate, invalidos)):
         ind.fitness.values = fit
-    pop[:] = elite + off
-    log.record(gen=gen, nevals=len(inval), **stats.compile(pop))
+    pop[:] = elite + filhos
+    log.record(geracao=g, avaliacoes=len(invalidos), **estat.compile(pop))
 \end{lstlisting}
 
 \textbf{Dicas.}
@@ -445,7 +445,7 @@ Como trabalhos futuros, propõem-se:
 \end{itemize}
 
 \section*{Disponibilidade do código}
-Todo o código, os dados, os resultados brutos (CSV/JSON) e os scripts que geram as figuras e as tabelas acompanham este artigo. A reprodução completa é feita com \code{python run\_all.py} (ver \code{README.md}).
+Todo o código, os dados, os resultados brutos (CSV/JSON) e os scripts que geram as figuras e as tabelas acompanham este artigo. A reprodução completa é feita com \code{python executar\_tudo.py} (ver \code{README.md}).
 
 \bibliographystyle{IEEEtran}
 \bibliography{referencias}

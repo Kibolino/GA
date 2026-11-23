@@ -32,7 +32,7 @@ pip install -r requirements.txt
 Execute tudo a partir da raiz do projeto:
 
 ```bash
-python run_all.py
+python executar_tudo.py
 ```
 
 Esse comando roda as duas atividades: 30 execuções por configuração, a análise de sensibilidade e a varredura de λ. Ele grava os resultados em `results/` e copia figuras e tabelas para `paper/`. Leva cerca de 5–10 min em 4 núcleos.
@@ -40,21 +40,21 @@ Esse comando roda as duas atividades: 30 execuções por configuração, a anál
 Opções úteis:
 
 ```bash
-python run_all.py --quick                 # versão reduzida (~20 s), grava em results/quick/
+python executar_tudo.py --rapido              # versão reduzida (~20 s), grava em results/quick/
 ```
 
 ```bash
-python run_all.py --seed 7 --runs 50 --jobs 4
+python executar_tudo.py --seed 7 --execucoes 50 --processos 4
 ```
 
 Cada atividade também pode ser executada separadamente:
 
 ```bash
-python -m src.atividade1_voos.experiments --seed 2026 --runs 30
+python -m src.atividade1_voos.experimentos --seed 2026 --execucoes 30
 ```
 
 ```bash
-python -m src.atividade2_rastrigin.experiments --seed 2026 --runs 30 --jobs 4 --dims 2 10
+python -m src.atividade2_rastrigin.experimentos --seed 2026 --execucoes 30 --processos 4 --dimensoes 2 10
 ```
 
 Testes automatizados: validade dos operadores, fitness calculada à mão, reprodutibilidade e mínimo da Rastrigin.
@@ -72,12 +72,14 @@ cd paper && latexmk -pdf main.tex
 Gerar o `.zip` de entrega para o SIGAA (sai em `dist/`):
 
 ```bash
-python scripts/make_zip.py
+python scripts/gerar_zip.py
 ```
 
 ### Reprodutibilidade
 
-A execução *r* usa a seed `seed + r` (padrão `seed = 2026`). A Atividade 1 usa `numpy.random.default_rng(seed)`. A Atividade 2 usa `random.seed(seed)`, que é o gerador usado internamente pelo DEAP. Com a mesma seed, os resultados são idênticos, inclusive com `--jobs > 1`.
+A execução *r* usa a seed `seed + r` (padrão `seed = 2026`). A Atividade 1 usa `numpy.random.default_rng(seed)`. A Atividade 2 usa `random.seed(seed)`, que é o gerador usado internamente pelo DEAP. Com a mesma seed, os resultados são idênticos, inclusive com `--processos > 1`.
+
+As opções antigas em inglês (`--runs`, `--jobs`, `--quick`, `--dims`, `--out`) continuam aceitas como sinônimos.
 
 ---
 
@@ -88,24 +90,26 @@ A execução *r* usa a seed `seed + r` (padrão `seed = 2026`). A Atividade 1 us
 ├── data/flights.txt                 # espaço de busca da Atividade 1 (120 voos)
 ├── docs/                            # enunciado (PDF) e template IEEE fornecido
 ├── src/
-│   ├── common/                      # estatística (média, variância, DP), estilo de gráficos, tabelas LaTeX
+│   ├── comum/
+│   │   ├── estatistica.py           #   média, variância, desvio padrão, CSV/JSON, tabelas LaTeX
+│   │   └── estilo_graficos.py       #   cores e estilo dos gráficos
 │   ├── atividade1_voos/             # AG implementado do zero
-│   │   ├── flights.py               #   leitura e organização dos voos
-│   │   ├── model.py                 #   cenários (premissas), decodificação e função fitness
-│   │   ├── ga.py                    #   motor do AG: torneio, cruzamento, mutações, elitismo
-│   │   ├── exact.py                 #   ótimo exato por enumeração decomposta (só validação)
-│   │   ├── plots.py                 #   gráficos
-│   │   └── experiments.py           #   experimentos (CLI)
+│   │   ├── voos.py                  #   leitura e organização dos voos
+│   │   ├── modelo.py                #   cenários (premissas), decodificação e função fitness
+│   │   ├── ag.py                    #   motor do AG: torneio, cruzamento, mutações, elitismo
+│   │   ├── exato.py                 #   ótimo exato por enumeração (só validação)
+│   │   ├── graficos.py              #   gráficos
+│   │   └── experimentos.py          #   experimentos (linha de comando)
 │   └── atividade2_rastrigin/        # AG com DEAP
 │       ├── rastrigin.py             #   função objetivo
-│       ├── ga_deap.py               #   creator/toolbox, laço elitista, busca aleatória
-│       ├── plots.py
-│       └── experiments.py
-├── tests/                           # pytest
+│       ├── ag_deap.py               #   creator/toolbox, laço elitista, busca aleatória
+│       ├── graficos.py
+│       └── experimentos.py
+├── testes/                          # pytest
 ├── results/atividade1|2/            # CSV por execução, resumo.json, históricos .npz, figuras, tabelas
 ├── paper/                           # main.tex, referencias.bib, figures/, tables/ (gerados), main.pdf
-├── run_all.py                       # pipeline completo
-└── scripts/make_zip.py              # empacotamento para o SIGAA
+├── executar_tudo.py                 # roda tudo
+└── scripts/gerar_zip.py             # empacotamento para o SIGAA
 ```
 
 ---
@@ -146,7 +150,7 @@ População de 150 indivíduos, 400 gerações.
 
 ## 5. Atividade 2 – modelagem resumida
 
-**Cromossomo:** lista de *n* reais em [−5,12; 5,12] (`creator.Individual`).
+**Cromossomo:** lista de *n* reais em [−5,12; 5,12] (`creator.Individuo`).
 
 **Operadores DEAP limitados ao domínio:**
 
@@ -154,7 +158,7 @@ População de 150 indivíduos, 400 gerações.
 - `mutPolynomialBounded` (η<sub>m</sub> = 20, probabilidade 1/n por gene);
 - `selTournament` (k = 3).
 
-**Elitismo:** laço geracional próprio (`ea_elitist`) que reinsere os 2 melhores. O `eaSimple` do DEAP não reinsere os melhores; o `HallOfFame` apenas os guarda.
+**Elitismo:** laço geracional próprio (`ag_elitista`) que reinsere os 2 melhores. O `eaSimple` do DEAP não reinsere os melhores; o `HallOfFame` apenas os guarda. Os nomes registrados `evaluate`, `mate`, `mutate` e `select` continuam em inglês porque são os que o DEAP procura no toolbox.
 
 **Configurações:** n = 2 com N = 100 e G = 100; n = 10 com N = 200 e G = 500.
 

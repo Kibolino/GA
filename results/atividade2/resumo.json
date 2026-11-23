@@ -1,231 +1,231 @@
 {
   "seed": 2026,
-  "runs": 30,
-  "eps_success": 0.0001,
-  "dims": {
+  "execucoes": 30,
+  "tol_sucesso": 0.0001,
+  "dimensoes": {
     "2": {
-      "params": {
-        "n_dim": 2,
-        "pop_size": 100,
-        "generations": 100,
-        "tournament_size": 3,
-        "cxpb": 0.9,
-        "mutpb": 1.0,
-        "indpb": 0.5,
+      "parametros": {
+        "dimensao": 2,
+        "tam_populacao": 100,
+        "geracoes": 100,
+        "tam_torneio": 3,
+        "prob_cruzamento": 0.9,
+        "prob_mutacao": 1.0,
+        "prob_gene": 0.5,
         "eta_c": 15.0,
         "eta_m": 20.0,
-        "elitism": 2
+        "elitismo": 2
       },
-      "ga": {
-        "best": {
+      "ag": {
+        "melhor": {
           "n": 30,
-          "mean": 1.8484747983293916e-05,
-          "var": 1.2237437148460543e-09,
-          "std": 3.4982048465549504e-05,
-          "min": 4.779758100426079e-08,
-          "median": 7.336756329578975e-06,
-          "max": 0.00015030763944423597
+          "media": 1.8484747983293916e-05,
+          "variancia": 1.2237437148460543e-09,
+          "desvio_padrao": 3.4982048465549504e-05,
+          "minimo": 4.779758100426079e-08,
+          "mediana": 7.336756329578975e-06,
+          "maximo": 0.00015030763944423597
         },
-        "log10_best": {
+        "log10_melhor": {
           "n": 30,
-          "mean": -5.2532622097406145,
-          "var": 0.5746994275748802,
-          "std": 0.7580893269100154,
-          "min": -7.320594082113503,
-          "median": -5.134723269135673,
-          "max": -3.823018945666175
+          "media": -5.2532622097406145,
+          "variancia": 0.5746994275748802,
+          "desvio_padrao": 0.7580893269100154,
+          "minimo": -7.320594082113503,
+          "mediana": -5.134723269135673,
+          "maximo": -3.823018945666175
         },
-        "success": 28,
-        "basin": 30,
-        "runs": 30,
-        "hit_gen": {
+        "sucessos": 28,
+        "na_bacia": 30,
+        "execucoes": 30,
+        "geracao_sucesso": {
           "n": 28,
-          "mean": 47.17857142857143,
-          "var": 347.8558201058201,
-          "std": 18.65089327903144,
-          "min": 20.0,
-          "median": 41.0,
-          "max": 100.0
+          "media": 47.17857142857143,
+          "variancia": 347.8558201058201,
+          "desvio_padrao": 18.65089327903144,
+          "minimo": 20.0,
+          "mediana": 41.0,
+          "maximo": 100.0
         },
-        "basin_gen": {
+        "geracao_bacia": {
           "n": 30,
-          "mean": 6.933333333333334,
-          "var": 14.547126436781609,
-          "std": 3.814069537486385,
-          "min": 2.0,
-          "median": 6.0,
-          "max": 20.0
+          "media": 6.933333333333334,
+          "variancia": 14.547126436781609,
+          "desvio_padrao": 3.814069537486385,
+          "minimo": 2.0,
+          "mediana": 6.0,
+          "maximo": 20.0
         },
-        "dist_origin": {
+        "distancia_origem": {
           "n": 30,
-          "mean": 0.00023304048376074178,
-          "var": 4.0205200023668866e-08,
-          "std": 0.00020051234381870077,
-          "min": 1.552175339569227e-05,
-          "median": 0.00019227953326099006,
-          "max": 0.0008704195321514531
+          "media": 0.00023304048376074178,
+          "variancia": 4.0205200023668866e-08,
+          "desvio_padrao": 0.00020051234381870077,
+          "minimo": 1.552175339569227e-05,
+          "mediana": 0.00019227953326099006,
+          "maximo": 0.0008704195321514531
         },
-        "final_pop_mean": {
+        "media_pop_final": {
           "n": 30,
-          "mean": 11.568707766122794,
-          "var": 0.8899253029562277,
-          "std": 0.9433585230209285,
-          "min": 9.574545176191926,
-          "median": 11.669686409416826,
-          "max": 13.39608330651537
+          "media": 11.568707766122794,
+          "variancia": 0.8899253029562277,
+          "desvio_padrao": 0.9433585230209285,
+          "minimo": 9.574545176191926,
+          "mediana": 11.669686409416826,
+          "maximo": 13.39608330651537
         },
-        "final_pop_std": {
+        "desvio_pop_final": {
           "n": 30,
-          "mean": 9.68945197427294,
-          "var": 0.46637026326971187,
-          "std": 0.6829130715323232,
-          "min": 7.598264607495195,
-          "median": 9.679361447652749,
-          "max": 10.957025225422388
+          "media": 9.68945197427294,
+          "variancia": 0.46637026326971187,
+          "desvio_padrao": 0.6829130715323232,
+          "minimo": 7.598264607495195,
+          "mediana": 9.679361447652749,
+          "maximo": 10.957025225422388
         },
-        "evaluations": {
+        "avaliacoes": {
           "n": 30,
-          "mean": 9900.0,
-          "var": 0.0,
-          "std": 0.0,
-          "min": 9900.0,
-          "median": 9900.0,
-          "max": 9900.0
+          "media": 9900.0,
+          "variancia": 0.0,
+          "desvio_padrao": 0.0,
+          "minimo": 9900.0,
+          "mediana": 9900.0,
+          "maximo": 9900.0
         },
-        "time_s": {
+        "tempo_s": {
           "n": 30,
-          "mean": 0.10784140196669796,
-          "var": 0.0003646592335645699,
-          "std": 0.01909605282681659,
-          "min": 0.09528255199984415,
-          "median": 0.09992955000006987,
-          "max": 0.16700770199986437
+          "media": 0.1497174141999949,
+          "variancia": 0.0010556145325079733,
+          "desvio_padrao": 0.032490222106165624,
+          "minimo": 0.1206831689999035,
+          "mediana": 0.13283414650004488,
+          "maximo": 0.2129576749998705
         }
       },
-      "random": {
+      "aleatoria": {
         "n": 30,
-        "mean": 0.3942603424334609,
-        "var": 0.06710589598371497,
-        "std": 0.25904805728612396,
-        "min": 0.00439831582276895,
-        "median": 0.34508837232827894,
-        "max": 0.941996751604055
+        "media": 0.3942603424334609,
+        "variancia": 0.06710589598371497,
+        "desvio_padrao": 0.25904805728612396,
+        "minimo": 0.00439831582276895,
+        "mediana": 0.34508837232827894,
+        "maximo": 0.941996751604055
       },
-      "best_x": [
+      "melhor_x": [
         1.3415202127895116e-05,
         7.807507947123898e-06
       ],
-      "best_f": 4.779758100426079e-08
+      "melhor_f": 4.779758100426079e-08
     },
     "10": {
-      "params": {
-        "n_dim": 10,
-        "pop_size": 200,
-        "generations": 500,
-        "tournament_size": 3,
-        "cxpb": 0.9,
-        "mutpb": 1.0,
-        "indpb": 0.1,
+      "parametros": {
+        "dimensao": 10,
+        "tam_populacao": 200,
+        "geracoes": 500,
+        "tam_torneio": 3,
+        "prob_cruzamento": 0.9,
+        "prob_mutacao": 1.0,
+        "prob_gene": 0.1,
         "eta_c": 15.0,
         "eta_m": 20.0,
-        "elitism": 2
+        "elitismo": 2
       },
-      "ga": {
-        "best": {
+      "ag": {
+        "melhor": {
           "n": 30,
-          "mean": 5.35171086075555e-05,
-          "var": 1.8478700876982096e-09,
-          "std": 4.2986859477033324e-05,
-          "min": 9.304097744688988e-06,
-          "median": 4.6771517929755646e-05,
-          "max": 0.00019462576474893467
+          "media": 5.35171086075555e-05,
+          "variancia": 1.8478700876982096e-09,
+          "desvio_padrao": 4.2986859477033324e-05,
+          "minimo": 9.304097744688988e-06,
+          "mediana": 4.6771517929755646e-05,
+          "maximo": 0.00019462576474893467
         },
-        "log10_best": {
+        "log10_melhor": {
           "n": 30,
-          "mean": -4.397933542735056,
-          "var": 0.12318156427740473,
-          "std": 0.3509723126934726,
-          "min": -5.031325735752084,
-          "median": -4.330191849138066,
-          "max": -3.710799667933959
+          "media": -4.397933542735056,
+          "variancia": 0.12318156427740473,
+          "desvio_padrao": 0.3509723126934726,
+          "minimo": -5.031325735752084,
+          "mediana": -4.330191849138066,
+          "maximo": -3.710799667933959
         },
-        "success": 28,
-        "basin": 30,
-        "runs": 30,
-        "hit_gen": {
+        "sucessos": 28,
+        "na_bacia": 30,
+        "execucoes": 30,
+        "geracao_sucesso": {
           "n": 28,
-          "mean": 403.64285714285717,
-          "var": 3900.68253968254,
-          "std": 62.455444435873964,
-          "min": 288.0,
-          "median": 412.0,
-          "max": 499.0
+          "media": 403.64285714285717,
+          "variancia": 3900.68253968254,
+          "desvio_padrao": 62.455444435873964,
+          "minimo": 288.0,
+          "mediana": 412.0,
+          "maximo": 499.0
         },
-        "basin_gen": {
+        "geracao_bacia": {
           "n": 30,
-          "mean": 63.666666666666664,
-          "var": 273.47126436781605,
-          "std": 16.536966601158028,
-          "min": 34.0,
-          "median": 60.0,
-          "max": 98.0
+          "media": 63.666666666666664,
+          "variancia": 273.47126436781605,
+          "desvio_padrao": 16.536966601158028,
+          "minimo": 34.0,
+          "mediana": 60.0,
+          "maximo": 98.0
         },
-        "dist_origin": {
+        "distancia_origem": {
           "n": 30,
-          "mean": 0.0004844824949565002,
-          "var": 3.623904225584187e-08,
-          "std": 0.0001903655490256624,
-          "min": 0.00021655836796020887,
-          "median": 0.00048549557500915863,
-          "max": 0.000990462817155393
+          "media": 0.0004844824949565002,
+          "variancia": 3.623904225584187e-08,
+          "desvio_padrao": 0.0001903655490256624,
+          "minimo": 0.00021655836796020887,
+          "mediana": 0.00048549557500915863,
+          "maximo": 0.000990462817155393
         },
-        "final_pop_mean": {
+        "media_pop_final": {
           "n": 30,
-          "mean": 12.845542652937866,
-          "var": 1.2630991845326838,
-          "std": 1.1238768547010316,
-          "min": 10.496920644365195,
-          "median": 12.783749175642217,
-          "max": 15.465603410772312
+          "media": 12.845542652937866,
+          "variancia": 1.2630991845326838,
+          "desvio_padrao": 1.1238768547010316,
+          "minimo": 10.496920644365195,
+          "mediana": 12.783749175642217,
+          "maximo": 15.465603410772312
         },
-        "final_pop_std": {
+        "desvio_pop_final": {
           "n": 30,
-          "mean": 12.39790999725494,
-          "var": 0.726563196930111,
-          "std": 0.8523867648726785,
-          "min": 10.314801016481061,
-          "median": 12.372087717558372,
-          "max": 14.293893002711442
+          "media": 12.39790999725494,
+          "variancia": 0.726563196930111,
+          "desvio_padrao": 0.8523867648726785,
+          "minimo": 10.314801016481061,
+          "mediana": 12.372087717558372,
+          "maximo": 14.293893002711442
         },
-        "evaluations": {
+        "avaliacoes": {
           "n": 30,
-          "mean": 99200.0,
-          "var": 0.0,
-          "std": 0.0,
-          "min": 99200.0,
-          "median": 99200.0,
-          "max": 99200.0
+          "media": 99200.0,
+          "variancia": 0.0,
+          "desvio_padrao": 0.0,
+          "minimo": 99200.0,
+          "mediana": 99200.0,
+          "maximo": 99200.0
         },
-        "time_s": {
+        "tempo_s": {
           "n": 30,
-          "mean": 1.5115430051999739,
-          "var": 0.02630544006253616,
-          "std": 0.16218951896635048,
-          "min": 1.3303825459997825,
-          "median": 1.480682477000073,
-          "max": 2.0465825440001026
+          "media": 1.8233426075333303,
+          "variancia": 0.019919689840223024,
+          "desvio_padrao": 0.14113713133057162,
+          "minimo": 1.6307305489999635,
+          "mediana": 1.8023635864999505,
+          "maximo": 2.1852715760001047
         }
       },
-      "random": {
+      "aleatoria": {
         "n": 30,
-        "mean": 57.09815763728535,
-        "var": 28.165434395863066,
-        "std": 5.307111681118371,
-        "min": 45.32457720907626,
-        "median": 56.22524962991498,
-        "max": 67.91637270493467
+        "media": 57.09815763728535,
+        "variancia": 28.165434395863066,
+        "desvio_padrao": 5.307111681118371,
+        "minimo": 45.32457720907626,
+        "mediana": 56.22524962991498,
+        "maximo": 67.91637270493467
       },
-      "best_x": [
+      "melhor_x": [
         0.00014654329247147446,
         -1.5424147130180938e-06,
         -7.936226049667091e-05,
@@ -237,204 +237,204 @@
         2.1124505427923757e-05,
         -7.37827375072587e-06
       ],
-      "best_f": 9.304097744688988e-06
+      "melhor_f": 9.304097744688988e-06
     }
   },
-  "sensitivity": [
+  "sensibilidade": [
     {
-      "factor": "Torneio $k$",
-      "field": "tournament_size",
-      "value": 2,
-      "is_base": false,
-      "mean": 0.022577831962874485,
-      "median": 0.016979078212479237,
-      "std": 0.019670061426708817,
-      "var": 0.00038691131653049803,
-      "basin": 30,
-      "success": 0,
-      "runs": 30
+      "fator": "Torneio $k$",
+      "campo": "tam_torneio",
+      "valor": 2,
+      "eh_base": false,
+      "media": 0.022577831962874485,
+      "mediana": 0.016979078212479237,
+      "desvio_padrao": 0.019670061426708817,
+      "variancia": 0.00038691131653049803,
+      "na_bacia": 30,
+      "sucessos": 0,
+      "execucoes": 30
     },
     {
-      "factor": "Torneio $k$",
-      "field": "tournament_size",
-      "value": 3,
-      "is_base": true,
-      "mean": 5.35171086075555e-05,
-      "median": 4.6771517929755646e-05,
-      "std": 4.2986859477033324e-05,
-      "var": 1.8478700876982096e-09,
-      "basin": 30,
-      "success": 28,
-      "runs": 30
+      "fator": "Torneio $k$",
+      "campo": "tam_torneio",
+      "valor": 3,
+      "eh_base": true,
+      "media": 5.35171086075555e-05,
+      "mediana": 4.6771517929755646e-05,
+      "desvio_padrao": 4.2986859477033324e-05,
+      "variancia": 1.8478700876982096e-09,
+      "na_bacia": 30,
+      "sucessos": 28,
+      "execucoes": 30
     },
     {
-      "factor": "Torneio $k$",
-      "field": "tournament_size",
-      "value": 5,
-      "is_base": false,
-      "mean": 3.3867830021942304e-10,
-      "median": 1.64476432473748e-10,
-      "std": 7.774094176236685e-10,
-      "var": 6.043654026099714e-19,
-      "basin": 30,
-      "success": 30,
-      "runs": 30
+      "fator": "Torneio $k$",
+      "campo": "tam_torneio",
+      "valor": 5,
+      "eh_base": false,
+      "media": 3.3867830021942304e-10,
+      "mediana": 1.64476432473748e-10,
+      "desvio_padrao": 7.774094176236685e-10,
+      "variancia": 6.043654026099714e-19,
+      "na_bacia": 30,
+      "sucessos": 30,
+      "execucoes": 30
     },
     {
-      "factor": "$p_c$",
-      "field": "cxpb",
-      "value": 0.6,
-      "is_base": false,
-      "mean": 2.6425576911985142e-05,
-      "median": 1.5556917524861547e-05,
-      "std": 2.461103459643518e-05,
-      "var": 6.057030239069292e-10,
-      "basin": 30,
-      "success": 30,
-      "runs": 30
+      "fator": "$p_c$",
+      "campo": "prob_cruzamento",
+      "valor": 0.6,
+      "eh_base": false,
+      "media": 2.6425576911985142e-05,
+      "mediana": 1.5556917524861547e-05,
+      "desvio_padrao": 2.461103459643518e-05,
+      "variancia": 6.057030239069292e-10,
+      "na_bacia": 30,
+      "sucessos": 30,
+      "execucoes": 30
     },
     {
-      "factor": "$p_c$",
-      "field": "cxpb",
-      "value": 0.9,
-      "is_base": true,
-      "mean": 5.35171086075555e-05,
-      "median": 4.6771517929755646e-05,
-      "std": 4.2986859477033324e-05,
-      "var": 1.8478700876982096e-09,
-      "basin": 30,
-      "success": 28,
-      "runs": 30
+      "fator": "$p_c$",
+      "campo": "prob_cruzamento",
+      "valor": 0.9,
+      "eh_base": true,
+      "media": 5.35171086075555e-05,
+      "mediana": 4.6771517929755646e-05,
+      "desvio_padrao": 4.2986859477033324e-05,
+      "variancia": 1.8478700876982096e-09,
+      "na_bacia": 30,
+      "sucessos": 28,
+      "execucoes": 30
     },
     {
-      "factor": "$p_c$",
-      "field": "cxpb",
-      "value": 1.0,
-      "is_base": false,
-      "mean": 5.752976949461678e-05,
-      "median": 4.1068868426918925e-05,
-      "std": 4.421601392904532e-05,
-      "var": 1.95505588777353e-09,
-      "basin": 30,
-      "success": 26,
-      "runs": 30
+      "fator": "$p_c$",
+      "campo": "prob_cruzamento",
+      "valor": 1.0,
+      "eh_base": false,
+      "media": 5.752976949461678e-05,
+      "mediana": 4.1068868426918925e-05,
+      "desvio_padrao": 4.421601392904532e-05,
+      "variancia": 1.95505588777353e-09,
+      "na_bacia": 30,
+      "sucessos": 26,
+      "execucoes": 30
     },
     {
-      "factor": "$p_{\\mathrm{gene}}$",
-      "field": "indpb",
-      "value": 0.05,
-      "is_base": false,
-      "mean": 7.224916960997992e-10,
-      "median": 5.138076630828436e-10,
-      "std": 6.157547714076828e-10,
-      "var": 3.791539385113276e-19,
-      "basin": 30,
-      "success": 30,
-      "runs": 30
+      "fator": "$p_{\\mathrm{gene}}$",
+      "campo": "prob_gene",
+      "valor": 0.05,
+      "eh_base": false,
+      "media": 7.224916960997992e-10,
+      "mediana": 5.138076630828436e-10,
+      "desvio_padrao": 6.157547714076828e-10,
+      "variancia": 3.791539385113276e-19,
+      "na_bacia": 30,
+      "sucessos": 30,
+      "execucoes": 30
     },
     {
-      "factor": "$p_{\\mathrm{gene}}$",
-      "field": "indpb",
-      "value": 0.1,
-      "is_base": true,
-      "mean": 5.35171086075555e-05,
-      "median": 4.6771517929755646e-05,
-      "std": 4.2986859477033324e-05,
-      "var": 1.8478700876982096e-09,
-      "basin": 30,
-      "success": 28,
-      "runs": 30
+      "fator": "$p_{\\mathrm{gene}}$",
+      "campo": "prob_gene",
+      "valor": 0.1,
+      "eh_base": true,
+      "media": 5.35171086075555e-05,
+      "mediana": 4.6771517929755646e-05,
+      "desvio_padrao": 4.2986859477033324e-05,
+      "variancia": 1.8478700876982096e-09,
+      "na_bacia": 30,
+      "sucessos": 28,
+      "execucoes": 30
     },
     {
-      "factor": "$p_{\\mathrm{gene}}$",
-      "field": "indpb",
-      "value": 0.2,
-      "is_base": false,
-      "mean": 0.28440590711145197,
-      "median": 0.2008982796960268,
-      "std": 0.30042420192170366,
-      "var": 0.09025470110029256,
-      "basin": 26,
-      "success": 0,
-      "runs": 30
+      "fator": "$p_{\\mathrm{gene}}$",
+      "campo": "prob_gene",
+      "valor": 0.2,
+      "eh_base": false,
+      "media": 0.28440590711145197,
+      "mediana": 0.2008982796960268,
+      "desvio_padrao": 0.30042420192170366,
+      "variancia": 0.09025470110029256,
+      "na_bacia": 26,
+      "sucessos": 0,
+      "execucoes": 30
     },
     {
-      "factor": "$\\eta_m$",
-      "field": "eta_m",
-      "value": 5.0,
-      "is_base": false,
-      "mean": 0.00032654313144793906,
-      "median": 0.00025025882862195203,
-      "std": 0.00021742413453564678,
-      "var": 4.7273254278575025e-08,
-      "basin": 30,
-      "success": 1,
-      "runs": 30
+      "fator": "$\\eta_m$",
+      "campo": "eta_m",
+      "valor": 5.0,
+      "eh_base": false,
+      "media": 0.00032654313144793906,
+      "mediana": 0.00025025882862195203,
+      "desvio_padrao": 0.00021742413453564678,
+      "variancia": 4.7273254278575025e-08,
+      "na_bacia": 30,
+      "sucessos": 1,
+      "execucoes": 30
     },
     {
-      "factor": "$\\eta_m$",
-      "field": "eta_m",
-      "value": 20.0,
-      "is_base": true,
-      "mean": 5.35171086075555e-05,
-      "median": 4.6771517929755646e-05,
-      "std": 4.2986859477033324e-05,
-      "var": 1.8478700876982096e-09,
-      "basin": 30,
-      "success": 28,
-      "runs": 30
+      "fator": "$\\eta_m$",
+      "campo": "eta_m",
+      "valor": 20.0,
+      "eh_base": true,
+      "media": 5.35171086075555e-05,
+      "mediana": 4.6771517929755646e-05,
+      "desvio_padrao": 4.2986859477033324e-05,
+      "variancia": 1.8478700876982096e-09,
+      "na_bacia": 30,
+      "sucessos": 28,
+      "execucoes": 30
     },
     {
-      "factor": "$\\eta_m$",
-      "field": "eta_m",
-      "value": 50.0,
-      "is_base": false,
-      "mean": 1.440009874424201e-05,
-      "median": 1.171210566752734e-05,
-      "std": 1.1979620870428586e-05,
-      "var": 1.4351131619920814e-10,
-      "basin": 30,
-      "success": 30,
-      "runs": 30
+      "fator": "$\\eta_m$",
+      "campo": "eta_m",
+      "valor": 50.0,
+      "eh_base": false,
+      "media": 1.440009874424201e-05,
+      "mediana": 1.171210566752734e-05,
+      "desvio_padrao": 1.1979620870428586e-05,
+      "variancia": 1.4351131619920814e-10,
+      "na_bacia": 30,
+      "sucessos": 30,
+      "execucoes": 30
     },
     {
-      "factor": "Elitismo $e$",
-      "field": "elitism",
-      "value": 0,
-      "is_base": false,
-      "mean": 0.1049118063978284,
-      "median": 0.1014894651666296,
-      "std": 0.03283562283291835,
-      "var": 0.0010781781268256688,
-      "basin": 30,
-      "success": 0,
-      "runs": 30
+      "fator": "Elitismo $e$",
+      "campo": "elitismo",
+      "valor": 0,
+      "eh_base": false,
+      "media": 0.1049118063978284,
+      "mediana": 0.1014894651666296,
+      "desvio_padrao": 0.03283562283291835,
+      "variancia": 0.0010781781268256688,
+      "na_bacia": 30,
+      "sucessos": 0,
+      "execucoes": 30
     },
     {
-      "factor": "Elitismo $e$",
-      "field": "elitism",
-      "value": 2,
-      "is_base": true,
-      "mean": 5.35171086075555e-05,
-      "median": 4.6771517929755646e-05,
-      "std": 4.2986859477033324e-05,
-      "var": 1.8478700876982096e-09,
-      "basin": 30,
-      "success": 28,
-      "runs": 30
+      "fator": "Elitismo $e$",
+      "campo": "elitismo",
+      "valor": 2,
+      "eh_base": true,
+      "media": 5.35171086075555e-05,
+      "mediana": 4.6771517929755646e-05,
+      "desvio_padrao": 4.2986859477033324e-05,
+      "variancia": 1.8478700876982096e-09,
+      "na_bacia": 30,
+      "sucessos": 28,
+      "execucoes": 30
     },
     {
-      "factor": "Elitismo $e$",
-      "field": "elitism",
-      "value": 10,
-      "is_base": false,
-      "mean": 2.8449449018808083e-09,
-      "median": 8.303189247271803e-10,
-      "std": 8.468127945759447e-09,
-      "var": 7.170919090575213e-17,
-      "basin": 30,
-      "success": 30,
-      "runs": 30
+      "fator": "Elitismo $e$",
+      "campo": "elitismo",
+      "valor": 10,
+      "eh_base": false,
+      "media": 2.8449449018808083e-09,
+      "mediana": 8.303189247271803e-10,
+      "desvio_padrao": 8.468127945759447e-09,
+      "variancia": 7.170919090575213e-17,
+      "na_bacia": 30,
+      "sucessos": 30,
+      "execucoes": 30
     }
   ]
 }

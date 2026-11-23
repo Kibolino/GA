@@ -1,4 +1,4 @@
-scenario,lambda,exact_F,exact_cost,exact_wait,ga_mean_F,ga_mean_gap_pct,ga_max_gap_pct,ga_success,runs
+cenario,lambda,F_exato,custo_exato,espera_exata,F_medio_ag,gap_medio_pct,gap_max_pct,sucessos_ag,execucoes
 A,0.0,1566.0,1566.0,4329.0,1566.0,0.0,0.0,10,10
 A,0.25,2105.25,1793.0,1249.0,2166.9,2.928393302458141,5.7356608478802995,0,10
 A,0.5,2355.0,2044.0,622.0,2423.7,2.9171974522292996,12.738853503184714,2,10
